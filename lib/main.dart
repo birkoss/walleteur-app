@@ -1,3 +1,4 @@
+import 'package:app/providers/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<UserProvider, PersonsProvider>(
           create: null,
           update: (ctx, user, persons) => PersonsProvider(user.token),
+        ),
+        ChangeNotifierProxyProvider<UserProvider, TransactionsProvider>(
+          create: null,
+          update: (ctx, user, transactions) => TransactionsProvider(user.token),
         ),
       ],
       child: Consumer<UserProvider>(

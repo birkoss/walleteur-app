@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/persons.dart';
+import '../providers/transactions.dart';
+
+import '../models/person.dart';
 
 class EditTransactionScreen extends StatefulWidget {
   static const routeName = '/edit-transaction';
@@ -14,10 +17,28 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
   final _form = GlobalKey<FormState>();
 
   var _formValues = {
-    'name': '',
+    'amount': '',
+    'reason': '',
   };
 
   var _isLoading = false;
+  var _isLoaded = false;
+
+  Person _currentPerson;
+
+  @override
+  void didChangeDependencies() {
+    if (!_isLoaded) {
+      _isLoaded = true;
+
+      final personId = ModalRoute.of(context).settings.arguments as String;
+      _currentPerson = Provider.of<PersonsProvider>(
+        context,
+        listen: false,
+      ).persons.firstWhere((p) => p.id == personId);
+    }
+    super.didChangeDependencies();
+  }
 
   void _submitForm() async {
     if (!_form.currentState.validate()) {
@@ -30,13 +51,20 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
     });
 
     try {
-      await Provider.of<PersonsProvider>(
+      await Provider.of<TransactionsProvider>(
         context,
         listen: false,
-      ).addPerson(_formValues['name']);
+      ).addTransaction(
+        _currentPerson.id,
+        double.parse(_formValues['amount']),
+        _formValues['reason'],
+      );
+
+      await Provider.of<PersonsProvider>(context, listen: false).fetch();
 
       Navigator.of(context).pop();
     } catch (error) {
+      print(error);
       await showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -63,7 +91,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Person'),
+        title: Text(_currentPerson.name),
         actions: [
           IconButton(
             icon: Icon(Icons.save),
@@ -82,9 +110,30 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                 child: ListView(
                   children: [
                     TextFormField(
-                      initialValue: _formValues['name'],
-                      decoration: InputDecoration(labelText: 'Name'),
+                      initialValue: _formValues['amount'],
+                      decoration: InputDecoration(labelText: 'Amount'),
                       textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.numberWithOptions(
+                        signed: true,
+                        decimal: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please provide a value!';
+                        }
+                        if (double.tryParse(value) == null) {
+                          return 'Please provide a valid amount!';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _formValues['amount'] = value;
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: _formValues['reason'],
+                      decoration: InputDecoration(labelText: 'Reason'),
+                      textInputAction: TextInputAction.done,
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please provide a value!';
@@ -92,7 +141,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                         return null;
                       },
                       onSaved: (value) {
-                        _formValues['name'] = value;
+                        _formValues['reason'] = value;
                       },
                     ),
                   ],
