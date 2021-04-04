@@ -99,6 +99,10 @@ class HomeScreen extends StatelessWidget {
                             child: Text(
                               personsProvider.persons[index].name[0]
                                   .toUpperCase(),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           title: Text(personsProvider.persons[index].name),

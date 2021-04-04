@@ -1,4 +1,3 @@
-import 'package:app/providers/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,8 +7,10 @@ import './screens/home.dart';
 import './screens/login.dart';
 import './screens/register.dart';
 import './screens/splash.dart';
+import './screens/transactions.dart';
 
 import './providers/persons.dart';
+import './providers/transactions.dart';
 import './providers/user.dart';
 
 void main() {
@@ -38,8 +39,8 @@ class MyApp extends StatelessWidget {
         builder: (ctx, user, _) => MaterialApp(
           title: 'Walleteur',
           theme: ThemeData(
-            primarySwatch: Colors.green,
-            accentColor: Colors.amber,
+            primarySwatch: Colors.purple,
+            accentColor: Colors.green,
           ),
           home: user.isLogged
               ? HomeScreen()
@@ -58,6 +59,8 @@ class MyApp extends StatelessWidget {
             RegisterScreen.routeName: (ctx) => RegisterScreen(),
             EditPersonScreen.routeName: (ctx) => EditPersonScreen(),
             EditTransactionScreen.routeName: (ctx) => EditTransactionScreen(),
+            TransactionsScreen.routeName: (ctx) => TransactionsScreen(),
+            HomeScreen.routeName: (ctx) => HomeScreen(),
           },
         ),
       ),

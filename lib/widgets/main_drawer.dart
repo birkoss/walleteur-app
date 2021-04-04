@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/home.dart';
+import '../screens/transactions.dart';
 
 import '../providers/user.dart';
 
@@ -20,6 +21,15 @@ class MainDrawer extends StatelessWidget {
             title: const Text('Home'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: const Icon(Icons.account_balance),
+            title: const Text('Transactions'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(TransactionsScreen.routeName);
             },
           ),
           Divider(),
