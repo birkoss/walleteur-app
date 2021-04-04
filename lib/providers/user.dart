@@ -18,6 +18,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> _login(String newToken) async {
+    print("UserProvider._login");
     _token = newToken;
 
     final prefs = await SharedPreferences.getInstance();
@@ -26,9 +27,12 @@ class UserProvider with ChangeNotifier {
         json.encode({
           'token': _token,
         }));
+
+    notifyListeners();
   }
 
   Future<void> login(String email, String password) async {
+    print("UserProvider.login");
     final url = Uri.http('localhost:8000', '/v1/login');
     try {
       final response = await http.post(
@@ -55,6 +59,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> logout() async {
+    print("logout");
     var prefs = await SharedPreferences.getInstance();
     prefs.remove('userData');
 
@@ -63,6 +68,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> register(String email, String password) async {
+    print("UserProvider.register");
     final url = Uri.http('localhost:8000', '/v1/register');
     try {
       final response = await http.post(
@@ -103,6 +109,7 @@ class UserProvider with ChangeNotifier {
     }
 
     _token = userData['token'];
+    notifyListeners();
 
     print("tryAutoLogin() -> true");
 
