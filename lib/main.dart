@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import './screens/edit_person.dart';
 import './screens/home.dart';
 import './screens/login.dart';
 import './screens/register.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
           routes: {
             LoginScreen.routeName: (ctx) => LoginScreen(),
             RegisterScreen.routeName: (ctx) => RegisterScreen(),
+            EditPersonScreen.routeName: (ctx) => EditPersonScreen(),
           },
         ),
       ),
