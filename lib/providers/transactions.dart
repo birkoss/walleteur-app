@@ -38,7 +38,16 @@ class TransactionsProvider with ChangeNotifier {
   }
 
   Future<void> deleteTransaction(String transactionId) async {
-    // ..
+    final url = Uri.http('localhost:8000', '/v1/transaction/$transactionId');
+
+    await http.delete(url, headers: {
+      'Authorization': 'token $_userToken',
+      'content-type': 'application/json',
+    });
+
+    _transactions.removeWhere((t) => t.id == transactionId);
+
+    notifyListeners();
   }
 
   Future<void> fetch() async {
