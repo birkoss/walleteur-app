@@ -1,4 +1,5 @@
 import 'package:app/screens/edit_person.dart';
+import 'package:app/screens/edit_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,21 +52,67 @@ class HomeScreen extends StatelessWidget {
                   child: Consumer<PersonsProvider>(
                     builder: (ctx, personsProvider, _) => ListView.builder(
                       itemCount: personsProvider.persons.length,
-                      itemBuilder: (ctx, index) => ListTile(
-                        leading: CircleAvatar(
-                          child: Text(
-                            personsProvider.persons[index].name[0]
-                                .toUpperCase(),
+                      itemBuilder: (ctx, index) => Dismissible(
+                        direction: DismissDirection.endToStart,
+                        confirmDismiss: (direction) => showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: Text('Are you sure?'),
+                            content: Text('Do you want to remove this person?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(false);
+                                },
+                                child: Text('No'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: Text('Yes'),
+                              ),
+                            ],
                           ),
                         ),
-                        title: Text(personsProvider.persons[index].name),
-                        subtitle: Text('Last week: +XX \$'),
-                        trailing: Text(
-                          '${personsProvider.persons[index].balance.toStringAsFixed(2)} \$',
+                        background: Container(
+                          color: Theme.of(context).errorColor,
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.only(right: 20),
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 4,
+                          ),
                         ),
-                        onTap: () {
-                          // ...
+                        key: ValueKey(personsProvider.persons[index].id),
+                        onDismissed: (direction) {
+                          Provider.of<PersonsProvider>(context, listen: false)
+                              .deletePerson(personsProvider.persons[index].id);
                         },
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Text(
+                              personsProvider.persons[index].name[0]
+                                  .toUpperCase(),
+                            ),
+                          ),
+                          title: Text(personsProvider.persons[index].name),
+                          subtitle: Text('Last week: +XX \$'),
+                          trailing: Text(
+                            '${personsProvider.persons[index].balance.toStringAsFixed(2)} \$',
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              EditTransactionScreen.routeName,
+                              arguments: personsProvider.persons[index].id,
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),

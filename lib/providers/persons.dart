@@ -35,6 +35,19 @@ class PersonsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deletePerson(String id) async {
+    final url = Uri.http('localhost:8000', '/v1/person/$id');
+
+    await http.delete(url, headers: {
+      'Authorization': 'token $_userToken',
+      'content-type': 'application/json',
+    });
+
+    _persons.removeWhere((p) => p.id == id);
+
+    notifyListeners();
+  }
+
   Future<void> fetch() async {
     print("fetch....");
     final url = Uri.http('localhost:8000', '/v1/persons');
