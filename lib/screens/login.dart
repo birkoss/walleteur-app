@@ -76,11 +76,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                 ),
-                child: Text(
-                  'Walleteur',
-                  style: Theme.of(context).textTheme.headline1.copyWith(
-                      color:
-                          Theme.of(context).primaryTextTheme.headline1.color),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/logo.png',
+                      width: 70,
+                    ),
+                    const SizedBox(width: 20),
+                    Text(
+                      'Walleteur',
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .headline1
+                              .color),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
@@ -90,6 +102,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
+                        Container(
+                          width: double.infinity,
+                          child: Text(
+                            'Login',
+                            style: Theme.of(context).textTheme.headline2,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        SizedBox(height: 10),
                         TextFormField(
                           decoration: const InputDecoration(labelText: 'Email'),
                           keyboardType: TextInputType.emailAddress,

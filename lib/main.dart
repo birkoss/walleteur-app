@@ -41,6 +41,11 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.purple,
             accentColor: Colors.green,
+            textTheme: TextTheme(
+              headline1: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+              headline2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              bodyText2: TextStyle(fontSize: 14.0),
+            ),
           ),
           home: user.isLogged
               ? HomeScreen()
