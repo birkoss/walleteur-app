@@ -1,9 +1,6 @@
-import 'dart:convert';
-
-import 'package:app/models/http_exception.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
+import '../models/api.dart';
 import '../models/person.dart';
 
 class PersonsProvider with ChangeNotifier {
@@ -18,30 +15,23 @@ class PersonsProvider with ChangeNotifier {
   }
 
   Future<void> addPerson(String name) async {
-    final url = Uri.http('localhost:8000', '/v1/persons');
+    final response = await Api.post(
+      endpoint: 'v1/persons',
+      token: _userToken,
+      body: {
+        'name': name,
+      },
+    );
 
-    final response = await http.post(url,
-        body: json.encode({
-          'name': name,
-        }),
-        headers: {
-          'Authorization': 'token $_userToken',
-          'content-type': 'application/json',
-        });
-
-    final responseData = json.decode(response.body);
-
-    _persons.add(Person(responseData['personId'], name, 0));
+    _persons.add(Person(response['personId'], name, 0));
     notifyListeners();
   }
 
   Future<void> deletePerson(String id) async {
-    final url = Uri.http('localhost:8000', '/v1/person/$id');
-
-    await http.delete(url, headers: {
-      'Authorization': 'token $_userToken',
-      'content-type': 'application/json',
-    });
+    await Api.delete(
+      endpoint: '/v1/person/$id',
+      token: _userToken,
+    );
 
     _persons.removeWhere((p) => p.id == id);
 
@@ -50,20 +40,11 @@ class PersonsProvider with ChangeNotifier {
 
   Future<void> fetch() async {
     print("fetch....");
-    final url = Uri.http('localhost:8000', '/v1/persons');
-    final response = await http.get(url, headers: {
-      'Authorization': 'token $_userToken',
-      'content-type': 'application/json',
-    });
 
-    final responseData = json.decode(response.body);
+    final response = await Api.get(endpoint: '/v1/persons', token: _userToken);
 
-    if (responseData['persons'] == null) {
-      throw HttpException('Cannot fetch persons list! Please try again later!');
-    }
-
-    final personsData = responseData['persons'] as List;
-    _persons = personsData
+    final persons = response['persons'] as List;
+    _persons = persons
         .map((p) => Person(p['id'], p['name'], double.parse(p['balance'])))
         .toList();
 

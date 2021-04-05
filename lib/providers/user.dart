@@ -1,10 +1,8 @@
 import 'dart:convert';
 
+import 'package:app/models/api.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../models/http_exception.dart';
 
 class UserProvider with ChangeNotifier {
   String _token;
@@ -33,29 +31,16 @@ class UserProvider with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     print("UserProvider.login");
-    final url = Uri.http('localhost:8000', '/v1/login');
-    try {
-      final response = await http.post(
-        url,
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: json.encode({
-          'email': email,
-          'password': password,
-        }),
-      );
 
-      final responseData = json.decode(response.body);
+    var response = await Api.post(
+      endpoint: '/v1/login',
+      body: {
+        'email': email,
+        'password': password,
+      },
+    );
 
-      if (responseData['error'] != null) {
-        throw HttpException(responseData['error']);
-      }
-
-      await _login(responseData['token']);
-    } catch (error) {
-      throw error;
-    }
+    await _login(response['token']);
   }
 
   Future<void> logout() async {
@@ -69,28 +54,16 @@ class UserProvider with ChangeNotifier {
 
   Future<void> register(String email, String password) async {
     print("UserProvider.register");
-    final url = Uri.http('localhost:8000', '/v1/register');
-    try {
-      final response = await http.post(
-        url,
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: json.encode({
-          'email': email,
-          'password': password,
-        }),
-      );
 
-      final responseData = json.decode(response.body);
-      if (responseData['error'] != null) {
-        throw HttpException(responseData['error']);
-      }
+    final response = await Api.post(
+      endpoint: '/v1/register',
+      body: {
+        'email': email,
+        'password': password,
+      },
+    );
 
-      await _login(responseData['token']);
-    } catch (error) {
-      throw error;
-    }
+    await _login(response['token']);
   }
 
   Future<bool> tryAutoLogin() async {
