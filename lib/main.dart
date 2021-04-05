@@ -20,7 +20,6 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("MyApp.build()");
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(

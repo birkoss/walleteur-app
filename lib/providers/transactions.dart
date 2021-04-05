@@ -57,7 +57,6 @@ class TransactionsProvider with ChangeNotifier {
             ))
         .toList();
 
-    print("fetch notifyListeners....");
     notifyListeners();
   }
 }

@@ -43,8 +43,6 @@ class PersonsProvider with ChangeNotifier {
   }
 
   Future<void> fetch() async {
-    print("fetch....");
-
     final response = await Api.get(endpoint: '/v1/persons', token: _userToken);
 
     final persons = response['persons'] as List;
@@ -52,7 +50,6 @@ class PersonsProvider with ChangeNotifier {
         .map((p) => Person(p['id'], p['name'], double.parse(p['balance'])))
         .toList();
 
-    print("notifyListeners....");
     notifyListeners();
   }
 }

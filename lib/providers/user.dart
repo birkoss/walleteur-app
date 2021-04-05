@@ -16,7 +16,6 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> _login(String newToken) async {
-    print("UserProvider._login");
     _token = newToken;
 
     final prefs = await SharedPreferences.getInstance();
@@ -30,8 +29,6 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> login(String email, String password) async {
-    print("UserProvider.login");
-
     var response = await Api.post(
       endpoint: '/v1/login',
       body: {
@@ -44,7 +41,6 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> logout() async {
-    print("logout");
     var prefs = await SharedPreferences.getInstance();
     prefs.remove('userData');
 
@@ -53,8 +49,6 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> register(String email, String password) async {
-    print("UserProvider.register");
-
     final response = await Api.post(
       endpoint: '/v1/register',
       body: {
@@ -67,8 +61,6 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<bool> tryAutoLogin() async {
-    print("tryAutoLogin()");
-
     var prefs = await SharedPreferences.getInstance();
 
     if (!prefs.containsKey('userData')) {
@@ -83,8 +75,6 @@ class UserProvider with ChangeNotifier {
 
     _token = userData['token'];
     notifyListeners();
-
-    print("tryAutoLogin() -> true");
 
     return true;
   }

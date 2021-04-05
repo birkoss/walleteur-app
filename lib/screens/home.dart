@@ -19,7 +19,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("BUILD...");
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
