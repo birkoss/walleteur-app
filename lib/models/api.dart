@@ -51,7 +51,7 @@ class Api {
         headers: Api._getHeaders(token),
       );
 
-      final data = json.decode(response.body);
+      final data = json.decode(utf8.decode(response.bodyBytes));
 
       if (data['error'] != null) {
         throw HttpException(data['error']);
