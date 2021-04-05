@@ -14,6 +14,10 @@ class PersonsProvider with ChangeNotifier {
     return [..._persons];
   }
 
+  bool get isEmpty {
+    return _persons.length == 0;
+  }
+
   Future<void> addPerson(String name) async {
     final response = await Api.post(
       endpoint: '/v1/persons',

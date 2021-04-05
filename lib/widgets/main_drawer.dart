@@ -13,7 +13,7 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text('Walleteur'),
+            title: const Text('Walleteur'),
             automaticallyImplyLeading: false,
           ),
           ListTile(
@@ -23,7 +23,7 @@ class MainDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.account_balance),
             title: const Text('Transactions'),
@@ -32,7 +32,7 @@ class MainDrawer extends StatelessWidget {
                   .pushReplacementNamed(TransactionsScreen.routeName);
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Logout'),

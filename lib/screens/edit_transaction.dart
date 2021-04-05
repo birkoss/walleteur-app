@@ -111,9 +111,9 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                   children: [
                     TextFormField(
                       initialValue: _formValues['amount'],
-                      decoration: InputDecoration(labelText: 'Amount'),
+                      decoration: const InputDecoration(labelText: 'Amount'),
                       textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.numberWithOptions(
+                      keyboardType: const TextInputType.numberWithOptions(
                         signed: true,
                         decimal: true,
                       ),
@@ -132,7 +132,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                     ),
                     TextFormField(
                       initialValue: _formValues['reason'],
-                      decoration: InputDecoration(labelText: 'Reason'),
+                      decoration: const InputDecoration(labelText: 'Reason'),
                       textInputAction: TextInputAction.done,
                       validator: (value) {
                         if (value.isEmpty) {

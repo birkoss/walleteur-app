@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/loading.dart';
+
 import '../providers/persons.dart';
 
 class EditPersonScreen extends StatefulWidget {
@@ -40,14 +42,14 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
       await showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: Text('An error occured!'),
-          content: Text('Something went wrong!'),
+          title: const Text('An error occured!'),
+          content: const Text('Something went wrong!'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(ctx).pop();
               },
-              child: Text('Ok'),
+              child: const Text('Ok'),
             ),
           ],
         ),
@@ -63,7 +65,7 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Person'),
+        title: const Text('Edit Person'),
         actions: [
           IconButton(
             icon: Icon(Icons.save),
@@ -72,9 +74,7 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
         ],
       ),
       body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
+          ? Loading()
           : Padding(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -83,7 +83,7 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
                   children: [
                     TextFormField(
                       initialValue: _formValues['name'],
-                      decoration: InputDecoration(labelText: 'Name'),
+                      decoration: const InputDecoration(labelText: 'Name'),
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value.isEmpty) {

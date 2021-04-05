@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         TextFormField(
-                          decoration: InputDecoration(labelText: 'Email'),
+                          decoration: const InputDecoration(labelText: 'Email'),
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value.isEmpty || !value.contains('@')) {
@@ -103,7 +103,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               _formValues['email'] = newValue,
                         ),
                         TextFormField(
-                          decoration: InputDecoration(labelText: 'Password'),
+                          decoration:
+                              const InputDecoration(labelText: 'Password'),
                           obscureText: true,
                           validator: (value) {
                             if (value.isEmpty || value.length < 8) {
@@ -114,15 +115,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           onSaved: (newValue) =>
                               _formValues['password'] = newValue,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         ElevatedButton(
-                          child: Text('LOGIN'),
+                          child: const Text('LOGIN'),
                           onPressed: _formSubmitted,
                         ),
                         TextButton(
-                          child: Text('Forgot your password?'),
+                          child: const Text('Forgot your password?'),
                           onPressed: () {
                             Navigator.of(context)
                                 .pushReplacementNamed(RegisterScreen.routeName);
@@ -135,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Container(
                 child: TextButton(
-                  child: Text('Don\'t have an account? Register'),
+                  child: const Text('Don\'t have an account? Register'),
                   style: TextButton.styleFrom(
                     textStyle: TextStyle(fontWeight: FontWeight.bold),
                   ),

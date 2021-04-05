@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       children: [
                         TextFormField(
-                          decoration: InputDecoration(labelText: 'Email'),
+                          decoration: const InputDecoration(labelText: 'Email'),
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value.isEmpty || !value.contains('@')) {
@@ -116,7 +116,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               _formValues['email'] = newValue,
                         ),
                         TextFormField(
-                          decoration: InputDecoration(labelText: 'Password'),
+                          decoration:
+                              const InputDecoration(labelText: 'Password'),
                           obscureText: true,
                           controller: _passwordController,
                           validator: (value) {
@@ -129,8 +130,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               _formValues['password'] = newValue,
                         ),
                         TextFormField(
-                          decoration:
-                              InputDecoration(labelText: 'Confirm Password'),
+                          decoration: const InputDecoration(
+                              labelText: 'Confirm Password'),
                           obscureText: true,
                           validator: (value) {
                             if (value != _passwordController.text) {
@@ -139,11 +140,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         ElevatedButton(
-                          child: Text('REGISTER'),
+                          child: const Text('REGISTER'),
                           onPressed: _formSubmitted,
                         ),
                       ],
@@ -153,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               Container(
                 child: TextButton(
-                  child: Text('Already have an account? Login'),
+                  child: const Text('Already have an account? Login'),
                   style: TextButton.styleFrom(
                     textStyle: TextStyle(fontWeight: FontWeight.bold),
                   ),
