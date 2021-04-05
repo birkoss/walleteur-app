@@ -16,7 +16,7 @@ class PersonsProvider with ChangeNotifier {
 
   Future<void> addPerson(String name) async {
     final response = await Api.post(
-      endpoint: 'v1/persons',
+      endpoint: '/v1/persons',
       token: _userToken,
       body: {
         'name': name,
