@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(20),
         child: FutureBuilder(
           future: _refreshPersons(context),
           builder: (ctx, snapshop) {
@@ -94,28 +94,31 @@ class HomeScreen extends StatelessWidget {
                           Provider.of<PersonsProvider>(context, listen: false)
                               .deletePerson(personsProvider.persons[index].id);
                         },
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            child: Text(
-                              personsProvider.persons[index].name[0]
-                                  .toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                        child: Card(
+                          elevation: 6,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              child: Text(
+                                personsProvider.persons[index].name[0]
+                                    .toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
+                            title: Text(personsProvider.persons[index].name),
+                            subtitle: Text('Last week: +XX \$'),
+                            trailing: Text(
+                              '${personsProvider.persons[index].balance.toStringAsFixed(2)} \$',
+                            ),
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                EditTransactionScreen.routeName,
+                                arguments: personsProvider.persons[index].id,
+                              );
+                            },
                           ),
-                          title: Text(personsProvider.persons[index].name),
-                          subtitle: Text('Last week: +XX \$'),
-                          trailing: Text(
-                            '${personsProvider.persons[index].balance.toStringAsFixed(2)} \$',
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              EditTransactionScreen.routeName,
-                              arguments: personsProvider.persons[index].id,
-                            );
-                          },
                         ),
                       ),
                     ),
