@@ -109,7 +109,15 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 title:
                                     Text(personsProvider.persons[index].name),
-                                subtitle: Text('Last week: +XX \$'),
+                                subtitle: Text(
+                                  'Last week: ' +
+                                      (personsProvider.persons[index]
+                                                  .stats['amount'] >
+                                              0
+                                          ? "+"
+                                          : "") +
+                                      '${personsProvider.persons[index].stats['amount'].toStringAsFixed(2)} \$',
+                                ),
                                 trailing: Text(
                                   '${personsProvider.persons[index].balance.toStringAsFixed(2)} \$',
                                   style: TextStyle(

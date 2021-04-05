@@ -50,6 +50,16 @@ class PersonsProvider with ChangeNotifier {
         .map((p) => Person(p['id'], p['name'], double.parse(p['balance'])))
         .toList();
 
+    final stats = response['weeklyStats'] as List;
+    stats.forEach((s) {
+      _persons.firstWhere((p) => p.id == s['personId']).stats = {
+        'amount': s['amount'],
+        'total': s['total'] + 0.0,
+      };
+    });
+
+    print(_persons[0].stats);
+
     notifyListeners();
   }
 }
