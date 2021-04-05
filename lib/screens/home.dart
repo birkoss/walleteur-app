@@ -55,7 +55,8 @@ class HomeScreen extends StatelessWidget {
                               builder: (ctx) => AlertDialog(
                                 title: const Text('Are you sure?'),
                                 content: const Text(
-                                    'Do you want to remove this person?'),
+                                  'Do you want to remove this person?',
+                                ),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -81,9 +82,9 @@ class HomeScreen extends StatelessWidget {
                               ),
                               alignment: Alignment.centerRight,
                               padding: const EdgeInsets.only(right: 20),
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 4,
+                              margin: const EdgeInsets.only(
+                                top: 4,
+                                bottom: 20,
                               ),
                             ),
                             key: ValueKey(personsProvider.persons[index].id),
@@ -94,6 +95,7 @@ class HomeScreen extends StatelessWidget {
                                       personsProvider.persons[index].id);
                             },
                             child: Card(
+                              margin: const EdgeInsets.only(bottom: 20),
                               elevation: 6,
                               child: ListTile(
                                 leading: CircleAvatar(
