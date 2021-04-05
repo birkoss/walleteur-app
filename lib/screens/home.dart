@@ -113,6 +113,15 @@ class HomeScreen extends StatelessWidget {
                                 subtitle: Text('Last week: +XX \$'),
                                 trailing: Text(
                                   '${personsProvider.persons[index].balance.toStringAsFixed(2)} \$',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        personsProvider.persons[index].balance <
+                                                0
+                                            ? Theme.of(context).errorColor
+                                            : null,
+                                  ),
                                 ),
                                 onTap: () {
                                   Navigator.of(context).pushNamed(
