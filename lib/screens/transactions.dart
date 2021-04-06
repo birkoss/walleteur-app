@@ -110,6 +110,17 @@ class TransactionsScreen extends StatelessWidget {
                                   .transactions[index].reason),
                               subtitle: Row(
                                 children: [
+                                  Icon(
+                                    Icons.people,
+                                    size: 18,
+                                    color: Colors.grey,
+                                  ),
+                                  const SizedBox(width: 2),
+                                  Text(
+                                    transactionsProvider
+                                        .transactions[index].person.name,
+                                  ),
+                                  const SizedBox(width: 10),
                                   const Icon(
                                     Icons.today,
                                     size: 18,
@@ -121,17 +132,6 @@ class TransactionsScreen extends StatelessWidget {
                                         transactionsProvider
                                             .transactions[index].date),
                                   ),
-                                  const SizedBox(width: 10),
-                                  Icon(
-                                    Icons.schedule,
-                                    size: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    DateFormat.Hm().format(transactionsProvider
-                                        .transactions[index].date),
-                                  )
                                 ],
                               ),
                               trailing: Text(

@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<UserProvider>(
         builder: (ctx, user, _) => MaterialApp(
           title: 'Walleteur',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: Colors.purple,
             accentColor: Colors.green,

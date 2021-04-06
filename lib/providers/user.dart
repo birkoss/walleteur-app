@@ -36,7 +36,6 @@ class UserProvider with ChangeNotifier {
         'password': password,
       },
     );
-
     await _login(response['token']);
   }
 

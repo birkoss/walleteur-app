@@ -1,3 +1,4 @@
+import 'package:app/models/person.dart';
 import 'package:flutter/material.dart';
 
 import '../models/api.dart';
@@ -50,11 +51,15 @@ class TransactionsProvider with ChangeNotifier {
     final transactionsData = response['transactions'] as List;
     _transactions = transactionsData
         .map((t) => Transaction(
-              id: t['id'],
-              amount: double.parse(t['amount']),
-              reason: t['reason'],
-              date: DateTime.parse(t['date_added']),
-            ))
+            id: t['id'],
+            amount: double.parse(t['amount']),
+            reason: t['reason'],
+            date: DateTime.parse(t['date_added']),
+            person: Person(
+              t['person']['id'],
+              t['person']['name'],
+              double.parse(t['person']['balance']),
+            )))
         .toList();
 
     notifyListeners();
