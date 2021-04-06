@@ -26,7 +26,7 @@ class TransactionsScreen extends StatelessWidget {
         title: const Text('Transactions'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         child: FutureBuilder(
           future: _refreshTransactions(context),
           builder: (ctx, snapshop) {
@@ -128,7 +128,7 @@ class TransactionsScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 2),
                                   Text(
-                                    DateFormat.yMMMMEEEEd().format(
+                                    DateFormat.MMMMEEEEd().format(
                                         transactionsProvider
                                             .transactions[index].date),
                                   ),
