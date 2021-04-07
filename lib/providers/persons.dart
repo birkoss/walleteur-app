@@ -51,6 +51,7 @@ class PersonsProvider with ChangeNotifier {
         .toList();
 
     final stats = response['weeklyStats'] as List;
+    print(stats);
     stats.forEach((s) {
       _persons.firstWhere((p) => p.id == s['personId']).stats = {
         'amount': s['amount'],

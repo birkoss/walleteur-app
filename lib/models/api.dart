@@ -38,6 +38,7 @@ class Api {
 
       return data;
     } catch (error) {
+      print(error);
       throw error;
     }
   }
@@ -85,6 +86,7 @@ class Api {
 
       return data;
     } catch (error) {
+      print(error);
       throw error;
     }
   }
