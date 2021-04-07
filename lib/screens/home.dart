@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Home'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add),
+            icon: const Icon(Icons.person_add),
             onPressed: () {
               Navigator.of(context).pushNamed(EditPersonScreen.routeName);
             },
