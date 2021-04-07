@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/http_exception.dart';
@@ -21,8 +22,8 @@ class Api {
   }
 
   static Future<dynamic> delete({
-    String endpoint,
-    String token,
+    @required String endpoint,
+    @required String token,
   }) async {
     try {
       final response = await http.delete(
@@ -30,8 +31,11 @@ class Api {
         headers: Api._getHeaders(token),
       );
 
+      print(Api._getHeaders(token));
+
       final data = json.decode(response.body);
 
+      print(data);
       if (data['error'] != null) {
         throw HttpException(data['error']);
       }

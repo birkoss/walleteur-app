@@ -37,8 +37,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _getTransaction() async {
     final response = await Api.get(
-        endpoint: '/v1/person/$_personId/transactions',
-        token: Provider.of<UserProvider>(context, listen: false).token);
+      endpoint: '/v1/person/$_personId/transactions',
+      token: Provider.of<UserProvider>(context, listen: false).token,
+    );
 
     final transactionsData = response['transactions'] as List;
     transactions = transactionsData

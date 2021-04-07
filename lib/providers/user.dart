@@ -47,6 +47,10 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void refresh() {
+    notifyListeners();
+  }
+
   Future<void> register(String email, String password) async {
     final response = await Api.post(
       endpoint: '/v1/register',

@@ -33,8 +33,10 @@ class TransactionsProvider with ChangeNotifier {
   }
 
   Future<void> deleteTransaction(String transactionId) async {
+    print("deleteTransaction: $transactionId");
     await Api.delete(
       endpoint: '/v1/transaction/$transactionId',
+      token: _userToken,
     );
 
     _transactions.removeWhere((t) => t.id == transactionId);

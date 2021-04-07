@@ -1,4 +1,6 @@
-class Person {
+import 'package:flutter/material.dart';
+
+class Person with ChangeNotifier {
   final String id;
   final String name;
   final double balance;

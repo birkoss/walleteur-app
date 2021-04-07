@@ -1,4 +1,4 @@
-import 'package:app/models/person.dart';
+import 'package:app/providers/person.dart';
 import 'package:app/providers/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -54,8 +54,10 @@ class TransactionItem extends StatelessWidget {
       ),
       key: ValueKey(transactionId),
       onDismissed: (direction) {
-        Provider.of<TransactionsProvider>(context, listen: false)
-            .deleteTransaction(transactionId);
+        Provider.of<TransactionsProvider>(
+          context,
+          listen: false,
+        ).deleteTransaction(transactionId);
       },
       child: ListTile(
         leading: CircleAvatar(
