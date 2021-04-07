@@ -15,8 +15,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  /* Form related properties */
   final GlobalKey<FormState> _formKey = GlobalKey();
-
+  bool _formIsSubmitting = false;
   Map<String, String> _formValues = {
     'email': '',
     'password': '',
@@ -47,6 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
     _formKey.currentState.save();
 
+    setState(() {
+      _formIsSubmitting = true;
+    });
+
     try {
       await Provider.of<UserProvider>(context, listen: false)
           .login(_formValues['email'], _formValues['password']);
@@ -55,6 +60,10 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (error) {
       _showErrorDialog('Cound not authenticate you. Please try later.');
     }
+
+    setState(() {
+      _formIsSubmitting = false;
+    });
   }
 
   @override
@@ -140,10 +149,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 _formValues['password'] = newValue,
                           ),
                           const SizedBox(height: 20),
-                          ElevatedButton(
-                            child: const Text('LOGIN'),
-                            onPressed: _formSubmitted,
-                          ),
+                          _formIsSubmitting
+                              ? CircularProgressIndicator()
+                              : ElevatedButton(
+                                  child: const Text('LOGIN'),
+                                  onPressed: _formSubmitted,
+                                ),
                           TextButton(
                             child: const Text('Forgot your password?'),
                             onPressed: () {

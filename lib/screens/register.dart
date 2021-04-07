@@ -17,7 +17,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _passwordController = TextEditingController();
-
+  bool _formIsSubmitting = false;
   Map<String, String> _formValues = {
     'email': '',
     'password': '',
@@ -49,6 +49,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     _formKey.currentState.save();
 
+    setState(() {
+      _formIsSubmitting = true;
+    });
+
     try {
       await Provider.of<UserProvider>(context, listen: false)
           .register(_formValues['email'], _formValues['password']);
@@ -68,6 +72,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     } catch (error) {
       _showErrorDialog();
     }
+
+    setState(() {
+      _formIsSubmitting = true;
+    });
   }
 
   @override
@@ -167,10 +175,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          ElevatedButton(
-                            child: const Text('REGISTER'),
-                            onPressed: _formSubmitted,
-                          ),
+                          _formIsSubmitting
+                              ? CircularProgressIndicator()
+                              : ElevatedButton(
+                                  child: const Text('REGISTER'),
+                                  onPressed: _formSubmitted,
+                                ),
                         ],
                       ),
                     ),
