@@ -5,6 +5,7 @@ import './screens/edit_person.dart';
 import './screens/edit_transaction.dart';
 import './screens/home.dart';
 import './screens/login.dart';
+import './screens/profile.dart';
 import './screens/register.dart';
 import './screens/splash.dart';
 import './screens/transactions.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
             EditTransactionScreen.routeName: (ctx) => EditTransactionScreen(),
             TransactionsScreen.routeName: (ctx) => TransactionsScreen(),
             HomeScreen.routeName: (ctx) => HomeScreen(),
+            ProfileScreen.routeName: (ctx) => ProfileScreen(),
           },
         ),
       ),

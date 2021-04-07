@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/edit_person.dart';
-import '../screens/edit_transaction.dart';
+import '../screens/profile.dart';
 
 import '../widgets/empty.dart';
 import '../widgets/loading.dart';
@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   Navigator.of(context).pushNamed(
-                                    EditTransactionScreen.routeName,
+                                    ProfileScreen.routeName,
                                     arguments:
                                         personsProvider.persons[index].id,
                                   );
