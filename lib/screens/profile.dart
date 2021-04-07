@@ -4,6 +4,7 @@ import 'package:app/models/transaction.dart';
 import 'package:app/providers/persons.dart';
 import 'package:app/providers/user.dart';
 import 'package:app/widgets/empty.dart';
+import 'package:app/widgets/transaction_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,7 +69,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return transactions.length == 0
               ? Empty('No transaction yet')
               : ListView.builder(
-                  itemBuilder: (ctx, index) => Text(transactions[index].reason),
+                  itemBuilder: (ctx, index) => TransactionItem(
+                    transactionId: transactions[index].id,
+                    amount: transactions[index].amount,
+                    reason: transactions[index].reason,
+                    person: transactions[index].person,
+                    date: transactions[index].date,
+                    onTap: () {
+                      // ...
+                    },
+                  ),
                   itemCount: transactions.length,
                 );
         },
