@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => UserProvider(),
         ),
-        ChangeNotifierProxyProvider<UserProvider, PersonsProvider>(
+        ChangeNotifierProxyProvider<UserProvider, Persons>(
           create: null,
-          update: (ctx, user, persons) => PersonsProvider(user.token),
+          update: (ctx, user, persons) => Persons(user.token),
         ),
         ChangeNotifierProxyProvider<UserProvider, TransactionsProvider>(
           create: null,

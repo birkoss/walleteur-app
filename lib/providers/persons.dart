@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../models/api.dart';
-import '../models/person.dart';
+import 'person.dart';
 
-class PersonsProvider with ChangeNotifier {
+class Persons with ChangeNotifier {
   final String _userToken;
 
-  PersonsProvider(this._userToken);
+  Persons(this._userToken);
 
   List<Person> _persons = [];
 
@@ -42,6 +42,7 @@ class PersonsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // @TODO: Optimize with Person.refresh()
   Future<void> fetch() async {
     final response = await Api.get(endpoint: '/v1/persons', token: _userToken);
 

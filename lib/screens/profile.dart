@@ -1,5 +1,5 @@
 import 'package:app/models/api.dart';
-import 'package:app/models/person.dart';
+import 'package:app/providers/person.dart';
 import 'package:app/models/transaction.dart';
 import 'package:app/providers/persons.dart';
 import 'package:app/providers/user.dart';
@@ -17,8 +17,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  List<Transaction> transactions;
-
   String _personId;
   Person _currentPerson;
 
@@ -26,11 +24,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void didChangeDependencies() {
     if (_currentPerson == null) {
       _personId = ModalRoute.of(context).settings.arguments as String;
-
-      _currentPerson = Provider.of<PersonsProvider>(
-        context,
-        listen: false,
-      ).persons.firstWhere((p) => p.id == _personId);
     }
     super.didChangeDependencies();
   }
@@ -42,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
 
     final transactionsData = response['transactions'] as List;
-    transactions = transactionsData
+    _currentPerson.transactions = transactionsData
         .map((t) => Transaction(
             id: t['id'],
             amount: double.parse(t['amount']),
@@ -58,6 +51,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _currentPerson = Provider.of<Persons>(
+      context,
+    ).persons.firstWhere((p) => p.id == _personId);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_currentPerson.name),
@@ -73,30 +70,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
           )
         ],
       ),
-      body: FutureBuilder(
-        future: _getTransaction(),
-        builder: (ctx, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return transactions.length == 0
-              ? Empty('No transaction yet')
-              : ListView.builder(
-                  itemBuilder: (ctx, index) => TransactionItem(
-                    transactionId: transactions[index].id,
-                    amount: transactions[index].amount,
-                    reason: transactions[index].reason,
-                    person: transactions[index].person,
-                    date: transactions[index].date,
-                    onTap: () {
-                      // ...
-                    },
-                  ),
-                  itemCount: transactions.length,
+      body: ChangeNotifierProvider.value(
+        value: _currentPerson,
+        child: Consumer<Person>(
+          builder: (ctx, p, _) => FutureBuilder(
+            future: _getTransaction(),
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
                 );
-        },
+              }
+              return _currentPerson.transactions.length == 0
+                  ? Empty('No transaction yet')
+                  : ListView.builder(
+                      itemBuilder: (ctx, index) => TransactionItem(
+                        transactionId: _currentPerson.transactions[index].id,
+                        amount: _currentPerson.transactions[index].amount,
+                        reason: _currentPerson.transactions[index].reason,
+                        person: _currentPerson,
+                        date: _currentPerson.transactions[index].date,
+                        onTap: () {
+                          // ...
+                        },
+                      ),
+                      itemCount: _currentPerson.transactions.length,
+                    );
+            },
+          ),
+        ),
       ),
     );
   }

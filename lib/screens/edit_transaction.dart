@@ -1,10 +1,11 @@
+import 'package:app/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/persons.dart';
 import '../providers/transactions.dart';
 
-import '../models/person.dart';
+import '../providers/person.dart';
 
 class EditTransactionScreen extends StatefulWidget {
   static const routeName = '/edit-transaction';
@@ -32,7 +33,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
       _isLoaded = true;
 
       final personId = ModalRoute.of(context).settings.arguments as String;
-      _currentPerson = Provider.of<PersonsProvider>(
+      _currentPerson = Provider.of<Persons>(
         context,
         listen: false,
       ).persons.firstWhere((p) => p.id == personId);
@@ -60,7 +61,11 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
         _formValues['reason'],
       );
 
-      await Provider.of<PersonsProvider>(context, listen: false).fetch();
+      /* Refresh the current user since the balance and other stats has changed */
+      await _currentPerson.refresh(Provider.of<UserProvider>(
+        context,
+        listen: false,
+      ).token);
 
       Navigator.of(context).pop();
     } catch (error) {

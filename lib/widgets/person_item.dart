@@ -10,7 +10,7 @@ class PersonItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final person = Provider.of<Person>(context, listen: false);
+    var person = Provider.of<Person>(context, listen: false);
 
     return Dismissible(
       direction: DismissDirection.endToStart,
@@ -53,37 +53,38 @@ class PersonItem extends StatelessWidget {
       ),
       key: ValueKey(person.id),
       onDismissed: (direction) {
-        Provider.of<PersonsProvider>(context, listen: false)
-            .deletePerson(person.id);
+        Provider.of<Persons>(context, listen: false).deletePerson(person.id);
       },
       child: Card(
         margin: const EdgeInsets.only(bottom: 20),
         elevation: 6,
-        child: ListTile(
-          leading: CircleAvatar(
-            child: Text(
-              person.name[0].toUpperCase(),
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        child: Consumer<Person>(
+          builder: (ctx, p, _) => ListTile(
+            leading: CircleAvatar(
+              child: Text(
+                person.name[0].toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          title: Text(person.name),
-          subtitle: Text(
-            'Last week: ' +
-                (person.stats['amount'] > 0 ? "+" : "") +
-                '${person.stats['amount'].toStringAsFixed(2)} \$',
-          ),
-          trailing: Text(
-            '${person.balance.toStringAsFixed(2)} \$',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: person.balance < 0 ? Theme.of(context).errorColor : null,
+            title: Text(person.name),
+            subtitle: Text(
+              'Last week: ' +
+                  (p.stats['amount'] > 0 ? "+" : "") +
+                  '${p.stats['amount'].toStringAsFixed(2)} \$',
             ),
+            trailing: Text(
+              '${p.balance.toStringAsFixed(2)} \$',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: person.balance < 0 ? Theme.of(context).errorColor : null,
+              ),
+            ),
+            onTap: onTap,
           ),
-          onTap: onTap,
         ),
       ),
     );

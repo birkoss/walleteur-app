@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../models/person.dart';
+import '../providers/person.dart';
 
 class Transaction {
   final String id;

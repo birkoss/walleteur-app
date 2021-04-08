@@ -32,7 +32,7 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
     });
 
     try {
-      await Provider.of<PersonsProvider>(
+      await Provider.of<Persons>(
         context,
         listen: false,
       ).addPerson(_formValues['name']);

@@ -1,4 +1,4 @@
-import 'package:app/models/person.dart';
+import 'package:app/providers/person.dart';
 import 'package:flutter/material.dart';
 
 import '../models/api.dart';

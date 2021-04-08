@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
 
   Future<void> _refreshPersons(BuildContext context) async {
-    await Provider.of<PersonsProvider>(context, listen: false).fetch();
+    await Provider.of<Persons>(context, listen: false).fetch();
   }
 
   @override
@@ -41,22 +41,22 @@ class HomeScreen extends StatelessWidget {
             if (snapshop.connectionState == ConnectionState.waiting) {
               return Loading();
             } else {
-              return Consumer<PersonsProvider>(
-                builder: (ctx, personsProvider, _) => RefreshIndicator(
+              return Consumer<Persons>(
+                builder: (ctx, persons, _) => RefreshIndicator(
                   onRefresh: () => _refreshPersons(context),
-                  child: personsProvider.isEmpty
+                  child: persons.isEmpty
                       ? Empty('No person at the moment...')
                       : ListView.builder(
-                          itemCount: personsProvider.persons.length,
+                          itemCount: persons.persons.length,
                           itemBuilder: (ctx, index) =>
                               ChangeNotifierProvider.value(
-                            value: personsProvider.persons[index],
-                            key: ValueKey(personsProvider.persons[index].id),
+                            value: persons.persons[index],
+                            key: ValueKey(persons.persons[index].id),
                             child: PersonItem(
                               () {
                                 Navigator.of(context).pushNamed(
                                   ProfileScreen.routeName,
-                                  arguments: personsProvider.persons[index].id,
+                                  arguments: persons.persons[index].id,
                                 );
                               },
                             ),

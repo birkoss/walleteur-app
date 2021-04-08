@@ -1,5 +1,6 @@
 import 'package:app/providers/person.dart';
 import 'package:app/providers/transactions.dart';
+import 'package:app/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -53,11 +54,19 @@ class TransactionItem extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
       ),
       key: ValueKey(transactionId),
-      onDismissed: (direction) {
-        Provider.of<TransactionsProvider>(
+      onDismissed: (direction) async {
+        await Provider.of<TransactionsProvider>(
           context,
           listen: false,
         ).deleteTransaction(transactionId);
+
+        /* Update the user */
+        await person.refresh(Provider.of<UserProvider>(
+          context,
+          listen: false,
+        ).token);
+
+        print("Balance: ${person.balance}");
       },
       child: ListTile(
         leading: CircleAvatar(
