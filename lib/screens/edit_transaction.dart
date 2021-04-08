@@ -26,13 +26,17 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
   var _isLoaded = false;
 
   Person _currentPerson;
+  Function onAdded;
 
   @override
   void didChangeDependencies() {
     if (!_isLoaded) {
       _isLoaded = true;
 
-      final personId = ModalRoute.of(context).settings.arguments as String;
+      final data = ModalRoute.of(context).settings.arguments as Map;
+
+      final personId = data['personId'];
+      onAdded = data['onAdded'];
       _currentPerson = Provider.of<Persons>(
         context,
         listen: false,
@@ -66,6 +70,9 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
         context,
         listen: false,
       ).token);
+
+      /* Callback the widget to refresh the list */
+      onAdded();
 
       Navigator.of(context).pop();
     } catch (error) {

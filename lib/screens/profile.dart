@@ -11,31 +11,36 @@ import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
-
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String _personId;
   Person _currentPerson;
+
+  List<Transaction> _transactions = [];
 
   @override
   void didChangeDependencies() {
     if (_currentPerson == null) {
-      _personId = ModalRoute.of(context).settings.arguments as String;
+      final personId = ModalRoute.of(context).settings.arguments as String;
+
+      _currentPerson = Provider.of<Persons>(
+        context,
+      ).persons.firstWhere((p) => p.id == personId);
     }
     super.didChangeDependencies();
   }
 
   Future<void> _getTransaction() async {
+    print("Profile._getTransaction()");
     final response = await Api.get(
-      endpoint: '/v1/person/$_personId/transactions',
+      endpoint: '/v1/person/${_currentPerson.id}/transactions',
       token: Provider.of<UserProvider>(context, listen: false).token,
     );
 
     final transactionsData = response['transactions'] as List;
-    _currentPerson.transactions = transactionsData
+    _transactions = transactionsData
         .map((t) => Transaction(
             id: t['id'],
             amount: double.parse(t['amount']),
@@ -51,10 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _currentPerson = Provider.of<Persons>(
-      context,
-    ).persons.firstWhere((p) => p.id == _personId);
-
+    print("Profile.build...");
     return Scaffold(
       appBar: AppBar(
         title: Text(_currentPerson.name),
@@ -64,41 +66,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () {
               Navigator.of(context).pushNamed(
                 EditTransactionScreen.routeName,
-                arguments: _currentPerson.id,
+                arguments: {
+                  'personId': _currentPerson.id,
+                  'onAdded': () {
+                    setState(() {
+                      // ...
+                    });
+                  }
+                },
               );
             },
           )
         ],
       ),
-      body: ChangeNotifierProvider.value(
-        value: _currentPerson,
-        child: Consumer<Person>(
-          builder: (ctx, p, _) => FutureBuilder(
-            future: _getTransaction(),
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
+      body: FutureBuilder(
+        future: _getTransaction(),
+        builder: (ctx, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return _transactions.length == 0
+              ? Empty('No transaction yet')
+              : ListView.builder(
+                  itemBuilder: (ctx, index) => TransactionItem(
+                    transactionId: _transactions[index].id,
+                    amount: _transactions[index].amount,
+                    reason: _transactions[index].reason,
+                    person: _currentPerson,
+                    date: _transactions[index].date,
+                    onTap: () {
+                      // ...
+                    },
+                    onDelete: () {
+                      setState(() {
+                        // ...
+                      });
+                    },
+                  ),
+                  itemCount: _transactions.length,
                 );
-              }
-              return _currentPerson.transactions.length == 0
-                  ? Empty('No transaction yet')
-                  : ListView.builder(
-                      itemBuilder: (ctx, index) => TransactionItem(
-                        transactionId: _currentPerson.transactions[index].id,
-                        amount: _currentPerson.transactions[index].amount,
-                        reason: _currentPerson.transactions[index].reason,
-                        person: _currentPerson,
-                        date: _currentPerson.transactions[index].date,
-                        onTap: () {
-                          // ...
-                        },
-                      ),
-                      itemCount: _currentPerson.transactions.length,
-                    );
-            },
-          ),
-        ),
+        },
       ),
     );
   }

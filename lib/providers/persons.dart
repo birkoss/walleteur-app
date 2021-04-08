@@ -27,6 +27,7 @@ class Persons with ChangeNotifier {
       },
     );
 
+    // @TODO: Alphabetical sort (like from the API)
     _persons.add(Person(response['personId'], name, 0));
     notifyListeners();
   }

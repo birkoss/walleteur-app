@@ -18,6 +18,7 @@ class Person with ChangeNotifier {
   Person(this.id, this.name, this.balance);
 
   Future<void> refresh(String userToken) async {
+    // @TODO: Add a properties isUpdatingBalance to show a progress when doing it
     print("refresh");
     final response = await Api.get(
       endpoint: '/v1/person/$id',

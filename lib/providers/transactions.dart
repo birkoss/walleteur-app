@@ -15,6 +15,7 @@ class TransactionsProvider with ChangeNotifier {
     return [..._transactions];
   }
 
+  // @TODO: Add a transactionType (manual, cron, interest)
   Future<void> addTransaction(
     String personId,
     double amount,

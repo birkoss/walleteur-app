@@ -12,6 +12,7 @@ class TransactionItem extends StatelessWidget {
   final Person person;
   final DateTime date;
   final Function onTap;
+  final Function onDelete;
 
   TransactionItem({
     @required this.transactionId,
@@ -20,6 +21,7 @@ class TransactionItem extends StatelessWidget {
     @required this.person,
     @required this.date,
     @required this.onTap,
+    @required this.onDelete,
   });
   @override
   Widget build(BuildContext context) {
@@ -66,6 +68,8 @@ class TransactionItem extends StatelessWidget {
           listen: false,
         ).token);
 
+        onDelete();
+
         print("Balance: ${person.balance}");
       },
       child: ListTile(
@@ -85,10 +89,6 @@ class TransactionItem extends StatelessWidget {
         title: Text(reason),
         subtitle: Row(
           children: [
-            Icon(Icons.people, size: 18, color: Colors.grey),
-            const SizedBox(width: 2),
-            Text(person.name),
-            const SizedBox(width: 10),
             const Icon(Icons.today, size: 18, color: Colors.grey),
             const SizedBox(width: 2),
             Text(

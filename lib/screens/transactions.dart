@@ -50,6 +50,9 @@ class TransactionsScreen extends StatelessWidget {
                             person:
                                 transactionsProvider.transactions[index].person,
                             date: transactionsProvider.transactions[index].date,
+                            onDelete: () {
+                              // ...
+                            },
                             onTap: () {
                               Navigator.of(context).pushNamed(
                                 EditTransactionScreen.routeName,
