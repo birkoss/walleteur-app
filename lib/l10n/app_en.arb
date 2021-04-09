@@ -16,6 +16,8 @@
     "loginScreenForgotPassword": "Forgot your password?",
     "loginScreenNoAccount": "Don't have an account? Register",
 
+    "editPersonScreenTitle": "Edit Person",
+
     "formLabelEmail": "Email",
     "formLabelPassword": "Password",
     "formLabelConfirmPassword": "Confirm Password",

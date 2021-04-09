@@ -13,6 +13,8 @@
     "loginScreenForgotPassword": "Mot de passe oublié?",
     "loginScreenNoAccount": "Aucun compte? Créer en un",
 
+    "editPersonScreenTitle": "Modifier une personne",
+
     "formLabelEmail": "Courriel",
     "formLabelPassword": "Mot de passe",
     "formLabelConfirmPassword": "Confirmation du mot de passe",

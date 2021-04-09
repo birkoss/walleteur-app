@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/loading.dart';
@@ -42,8 +43,12 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
       await showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('An error occured!'),
-          content: const Text('Something went wrong!'),
+          title: Text(
+            AppLocalizations.of(context).generalAlertDialogErrorTitle,
+          ),
+          content: Text(
+            AppLocalizations.of(context).generalAlertDialogErrorMessage,
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -65,7 +70,9 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Person'),
+        title: Text(
+          AppLocalizations.of(context).editPersonScreenTitle,
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.save),
@@ -87,7 +94,7 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please provide a value!';
+                          return AppLocalizations.of(context).errorValue;
                         }
                         return null;
                       },
