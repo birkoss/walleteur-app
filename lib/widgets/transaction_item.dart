@@ -100,7 +100,9 @@ class TransactionItem extends StatelessWidget {
             const Icon(Icons.today, size: 18, color: Colors.grey),
             const SizedBox(width: 2),
             Text(
-              DateFormat.MMMMEEEEd().format(date),
+              DateFormat.MMMMEEEEd(
+                Localizations.localeOf(context).languageCode,
+              ).format(date),
             ),
           ],
         ),
