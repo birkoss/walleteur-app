@@ -7,6 +7,7 @@ class Person with ChangeNotifier {
   final String name;
 
   double balance;
+  bool isUpdatingBalance = false;
 
   Map<String, double> stats = {
     'amount': 0,
@@ -18,7 +19,9 @@ class Person with ChangeNotifier {
   Person(this.id, this.name, this.balance);
 
   Future<void> refresh(String userToken) async {
-    // @TODO: Add a properties isUpdatingBalance to show a progress when doing it
+    isUpdatingBalance = true;
+    notifyListeners();
+
     print("refresh");
     final response = await Api.get(
       endpoint: '/v1/person/$id',
@@ -29,5 +32,8 @@ class Person with ChangeNotifier {
       balance = double.parse(response['person']['balance']);
       notifyListeners();
     }
+
+    isUpdatingBalance = false;
+    notifyListeners();
   }
 }

@@ -78,19 +78,28 @@ class PersonItem extends StatelessWidget {
               ),
             ),
             title: Text(person.name),
-            subtitle: Text(
-              AppLocalizations.of(context).personItemLastWeek +
-                  (p.stats['amount'] > 0 ? "+" : "") +
-                  '${p.stats['amount'].toStringAsFixed(2)} \$',
-            ),
-            trailing: Text(
-              '${p.balance.toStringAsFixed(2)} \$',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: person.balance < 0 ? Theme.of(context).errorColor : null,
-              ),
-            ),
+            subtitle: p.isUpdatingBalance
+                ? LinearProgressIndicator()
+                : Text(
+                    AppLocalizations.of(context).personItemLastWeek +
+                        (p.stats['amount'] > 0 ? "+" : "") +
+                        '${p.stats['amount'].toStringAsFixed(2)} \$',
+                  ),
+            trailing: p.isUpdatingBalance
+                ? SizedBox(
+                    width: 50,
+                    child: LinearProgressIndicator(),
+                  )
+                : Text(
+                    '${p.balance.toStringAsFixed(2)} \$',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: person.balance < 0
+                          ? Theme.of(context).errorColor
+                          : null,
+                    ),
+                  ),
             onTap: onTap,
           ),
         ),
