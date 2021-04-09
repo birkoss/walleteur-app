@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/register.dart';
@@ -27,14 +28,14 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('An Error Occured!'),
+        title: Text(AppLocalizations.of(context).generalAlertDialogTitle),
         content: Text(errorMessage),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
             },
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),
@@ -58,7 +59,9 @@ class _LoginScreenState extends State<LoginScreen> {
     } on HttpException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
-      _showErrorDialog('Cound not authenticate you. Please try later.');
+      _showErrorDialog(
+        AppLocalizations.of(context).errorLogin,
+      );
     }
 
     setState(() {
@@ -116,19 +119,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             width: double.infinity,
                             child: Text(
-                              'Login',
+                              AppLocalizations.of(context).loginScreenTitle,
                               style: Theme.of(context).textTheme.headline2,
                               textAlign: TextAlign.left,
                             ),
                           ),
                           SizedBox(height: 10),
                           TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'Email'),
+                            decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)
+                                    .formLabelEmail),
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value.isEmpty || !value.contains('@')) {
-                                return 'Invalid Email!';
+                                return AppLocalizations.of(context)
+                                    .errorInvalidEmail;
                               }
                               return null;
                             },
@@ -136,12 +141,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 _formValues['email'] = newValue,
                           ),
                           TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'Password'),
+                            decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)
+                                    .formLabelPassword),
                             obscureText: true,
                             validator: (value) {
                               if (value.isEmpty || value.length < 8) {
-                                return 'Invalid Password! Must be at least 8 characters!';
+                                return AppLocalizations.of(context)
+                                    .errorInvalidPassword;
                               }
                               return null;
                             },
@@ -152,11 +159,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           _formIsSubmitting
                               ? CircularProgressIndicator()
                               : ElevatedButton(
-                                  child: const Text('LOGIN'),
+                                  child: Text(
+                                    AppLocalizations.of(context).btnLogin,
+                                  ),
                                   onPressed: _formSubmitted,
                                 ),
                           TextButton(
-                            child: const Text('Forgot your password?'),
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .loginScreenForgotPassword,
+                            ),
                             onPressed: () {
                               Navigator.of(context).pushReplacementNamed(
                                   RegisterScreen.routeName);
@@ -169,7 +181,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Container(
                   child: TextButton(
-                    child: const Text('Don\'t have an account? Register'),
+                    child: Text(
+                      AppLocalizations.of(context).loginScreenNoAccount,
+                    ),
                     style: TextButton.styleFrom(
                       textStyle: TextStyle(fontWeight: FontWeight.bold),
                     ),

@@ -12,6 +12,10 @@
 
     "profileScreenNoTransaction": "No transaction at the moment",
 
+    "loginScreenTitle": "Login",
+    "loginScreenForgotPassword": "Forgot your password?",
+    "loginScreenNoAccount": "Don't have an account? Register",
+
     "formLabelEmail": "Email",
     "formLabelPassword": "Password",
     "formLabelConfirmPassword": "Confirm Password",
@@ -30,8 +34,10 @@
     "errorAllFieldsMandatory": "All fields are mandatory.",
     "errorInvalidPassword": "Invalid Password! Must be at least 8 characters!",
     "errorPasswordMustMatch": "Password must match!",
+    "errorLogin": "Cound not authenticate you. Please try later.",
 
     "btnRegister": "REGISTER",
+    "btnLogin": "LOGIN",
 
     "linkLogout": "Logout"
 }

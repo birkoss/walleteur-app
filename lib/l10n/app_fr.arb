@@ -9,6 +9,10 @@
 
     "profileScreenNoTransaction": "Aucune transaction pour le moment",
 
+    "loginScreenTitle": "Identification",
+    "loginScreenForgotPassword": "Mot de passe oublié?",
+    "loginScreenNoAccount": "Aucun compte? Créer en un",
+
     "formLabelEmail": "Courriel",
     "formLabelPassword": "Mot de passe",
     "formLabelConfirmPassword": "Confirmation du mot de passe",
@@ -27,8 +31,10 @@
     "errorAllFieldsMandatory": "Tous les champs sont obligatoires.",
     "errorInvalidPassword": "Mot de passe invalide! Il doit être au moins 8 caractères!",
     "errorPasswordMustMatch": "Les mots de passes ne sont pas identique!",
+    "errorLogin": "Impossible de vous identifier. Veuillez ré-essayer plus tard.",
 
     "btnRegister": "CRÉER",
+    "btnLogin": "ALLER",
 
     "linkLogout": "Déconnexion"
 
