@@ -1,5 +1,11 @@
 {
     "helloWorld": "Salut Monde!",
     "homeScreenTitle": "Accueil",
-    "homeScreenNoPerson": "Aucune personne pour l'instant"
+    "homeScreenNoPerson": "Aucune personne pour l'instant",
+    "generalAlertDialogTitle": "Êtes-vous sur?",
+    "generalAlertDialogDeletePerson": "Voulez-vous effacer cette personne?",
+    "generalAlertDialogBtnNo": "Non",
+    "generalAlertDialogBtnYes": "Oui",
+    "personItemLastWeek": "Semaine dernière: ",
+    "linkLogout": "Déconnexion"
 }

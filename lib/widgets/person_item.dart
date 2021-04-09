@@ -1,7 +1,9 @@
-import 'package:app/providers/person.dart';
-import 'package:app/providers/persons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/persons.dart';
+import '../providers/person.dart';
 
 class PersonItem extends StatelessWidget {
   final Function onTap;
@@ -17,22 +19,28 @@ class PersonItem extends StatelessWidget {
       confirmDismiss: (direction) => showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Are you sure?'),
-          content: const Text(
-            'Do you want to remove this person?',
+          title: Text(
+            AppLocalizations.of(context).generalAlertDialogTitle,
+          ),
+          content: Text(
+            AppLocalizations.of(context).generalAlertDialogDeletePerson,
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: const Text('No'),
+              child: Text(
+                AppLocalizations.of(context).generalAlertDialogBtnNo,
+              ),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: const Text('Yes'),
+              child: Text(
+                AppLocalizations.of(context).generalAlertDialogBtnYes,
+              ),
             ),
           ],
         ),
@@ -71,7 +79,7 @@ class PersonItem extends StatelessWidget {
             ),
             title: Text(person.name),
             subtitle: Text(
-              'Last week: ' +
+              AppLocalizations.of(context).personItemLastWeek +
                   (p.stats['amount'] > 0 ? "+" : "") +
                   '${p.stats['amount'].toStringAsFixed(2)} \$',
             ),

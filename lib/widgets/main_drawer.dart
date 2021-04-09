@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/home.dart';
-import '../screens/transactions.dart';
 
 import '../providers/user.dart';
 
@@ -18,24 +18,15 @@ class MainDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: const Text('Home'),
+            title: Text(AppLocalizations.of(context).homeScreenTitle),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             },
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.account_balance),
-            title: const Text('Transactions'),
-            onTap: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(TransactionsScreen.routeName);
-            },
-          ),
-          const Divider(),
-          ListTile(
             leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
+            title: Text(AppLocalizations.of(context).linkLogout),
             onTap: () {
               Provider.of<UserProvider>(context, listen: false).logout();
             },

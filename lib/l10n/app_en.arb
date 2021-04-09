@@ -4,5 +4,11 @@
       "description": "The conventional newborn programmer greeting"
     },
     "homeScreenTitle": "Home",
-    "homeScreenNoPerson": "No person at the moment"
+    "homeScreenNoPerson": "No person at the moment",
+    "generalAlertDialogTitle": "Are you sure?",
+    "generalAlertDialogDeletePerson": "Do you want to remove this person?",
+    "generalAlertDialogBtnNo": "No",
+    "generalAlertDialogBtnYes": "Yes",
+    "personItemLastWeek": "Last week: ",
+    "linkLogout": "Logout"
 }

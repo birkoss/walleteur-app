@@ -1,9 +1,11 @@
-import 'package:app/providers/person.dart';
-import 'package:app/providers/transactions.dart';
-import 'package:app/providers/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/person.dart';
+import '../providers/user.dart';
+import '../providers/transactions.dart';
 
 class TransactionItem extends StatelessWidget {
   final String transactionId;
@@ -30,20 +32,26 @@ class TransactionItem extends StatelessWidget {
       confirmDismiss: (direction) => showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Are you sure?'),
+          title: Text(
+            AppLocalizations.of(context).generalAlertDialogTitle,
+          ),
           content: const Text('Do you want to remove this transaction?'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
-              child: const Text('No'),
+              child: Text(
+                AppLocalizations.of(context).generalAlertDialogBtnNo,
+              ),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: const Text('Yes'),
+              child: Text(
+                AppLocalizations.of(context).generalAlertDialogBtnYes,
+              ),
             ),
           ],
         ),

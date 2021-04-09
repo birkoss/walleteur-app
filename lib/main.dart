@@ -9,7 +9,6 @@ import './screens/login.dart';
 import './screens/profile.dart';
 import './screens/register.dart';
 import './screens/splash.dart';
-import './screens/transactions.dart';
 
 import './providers/persons.dart';
 import './providers/transactions.dart';
@@ -68,7 +67,6 @@ class MyApp extends StatelessWidget {
             RegisterScreen.routeName: (ctx) => RegisterScreen(),
             EditPersonScreen.routeName: (ctx) => EditPersonScreen(),
             EditTransactionScreen.routeName: (ctx) => EditTransactionScreen(),
-            TransactionsScreen.routeName: (ctx) => TransactionsScreen(),
             HomeScreen.routeName: (ctx) => HomeScreen(),
             ProfileScreen.routeName: (ctx) => ProfileScreen(),
           },
