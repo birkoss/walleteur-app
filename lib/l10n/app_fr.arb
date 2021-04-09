@@ -2,10 +2,12 @@
     "helloWorld": "Salut Monde!",
 
     "homeScreenTitle": "Accueil",
-    "homeScreenNoPerson": "Aucune personne pour l'instant",
+    "homeScreenNoPerson": "Aucune personne pour le moment",
 
     "registerScreenTitle": "Nouveau compte",
     "registerScreenAlreadyHaveAccount": "Déjà un compte? Identifiez-vous",
+
+    "profileScreenNoTransaction": "Aucune transaction pour le moment",
 
     "formLabelEmail": "Courriel",
     "formLabelPassword": "Mot de passe",

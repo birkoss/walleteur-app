@@ -1,13 +1,18 @@
-import 'package:app/models/api.dart';
-import 'package:app/providers/person.dart';
-import 'package:app/models/transaction.dart';
-import 'package:app/providers/persons.dart';
-import 'package:app/providers/user.dart';
-import 'package:app/screens/edit_transaction.dart';
-import 'package:app/widgets/empty.dart';
-import 'package:app/widgets/transaction_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+
+import '../screens/edit_transaction.dart';
+
+import '../widgets/empty.dart';
+import '../widgets/transaction_item.dart';
+
+import '../models/api.dart';
+import '../models/transaction.dart';
+
+import '../providers/person.dart';
+import '../providers/persons.dart';
+import '../providers/user.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
@@ -88,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           }
           return _transactions.length == 0
-              ? Empty('No transaction yet')
+              ? Empty(AppLocalizations.of(context).profileScreenNoTransaction)
               : ListView.builder(
                   itemBuilder: (ctx, index) => TransactionItem(
                     transactionId: _transactions[index].id,

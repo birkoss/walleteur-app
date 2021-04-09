@@ -1,11 +1,11 @@
-import 'package:app/providers/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/persons.dart';
-import '../providers/transactions.dart';
-
 import '../providers/person.dart';
+import '../providers/persons.dart';
+import '../providers/user.dart';
+import '../providers/transactions.dart';
 
 class EditTransactionScreen extends StatefulWidget {
   static const routeName = '/edit-transaction';
@@ -80,14 +80,18 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
       await showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: Text('An error occured!'),
-          content: Text('Something went wrong!'),
+          title: Text(
+            AppLocalizations.of(context).generalAlertDialogErrorTitle,
+          ),
+          content: Text(
+            AppLocalizations.of(context).generalAlertDialogErrorMessage,
+          ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(ctx).pop();
               },
-              child: Text('Ok'),
+              child: const Text('Ok'),
             ),
           ],
         ),

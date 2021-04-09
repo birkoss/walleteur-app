@@ -10,6 +10,8 @@
     "registerScreenTitle": "Register",
     "registerScreenAlreadyHaveAccount": "Already have an account? Login",
 
+    "profileScreenNoTransaction": "No transaction at the moment",
+
     "formLabelEmail": "Email",
     "formLabelPassword": "Password",
     "formLabelConfirmPassword": "Confirm Password",
