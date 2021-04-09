@@ -3,12 +3,33 @@
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
     },
+
     "homeScreenTitle": "Home",
     "homeScreenNoPerson": "No person at the moment",
+
+    "registerScreenTitle": "Register",
+    "registerScreenAlreadyHaveAccount": "Already have an account? Login",
+
+    "formLabelEmail": "Email",
+    "formLabelPassword": "Password",
+    "formLabelConfirmPassword": "Confirm Password",
+
     "generalAlertDialogTitle": "Are you sure?",
     "generalAlertDialogDeletePerson": "Do you want to remove this person?",
     "generalAlertDialogBtnNo": "No",
     "generalAlertDialogBtnYes": "Yes",
+    "generalAlertDialogErrorMessage": "Something went wrong. Please try again.",
+    "generalAlertDialogErrorTitle": "An Error Occured!",
+
     "personItemLastWeek": "Last week: ",
+
+    "errorEmailAlreadyExists": "This email already exists.",
+    "errorInvalidEmail": "Invalid email",
+    "errorAllFieldsMandatory": "All fields are mandatory.",
+    "errorInvalidPassword": "Invalid Password! Must be at least 8 characters!",
+    "errorPasswordMustMatch": "Password must match!",
+
+    "btnRegister": "REGISTER",
+
     "linkLogout": "Logout"
 }

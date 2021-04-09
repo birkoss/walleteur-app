@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/login.dart';
@@ -23,19 +24,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
     'password': '',
   };
 
-  void _showErrorDialog(
-      [String errorMessage = 'Something went wrong. Please try again.']) {
+  void _showErrorDialog([String errorMessage = ""]) {
+    if (errorMessage == "") {
+      errorMessage =
+          AppLocalizations.of(context).generalAlertDialogErrorMessage;
+    }
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('An Error Occured!'),
+        title: Text(AppLocalizations.of(context).generalAlertDialogErrorTitle),
         content: Text(errorMessage),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
             },
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),
@@ -61,10 +65,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     } on HttpException catch (error) {
       switch (error.toString()) {
         case 'unique':
-          _showErrorDialog('This email already exists.');
+          _showErrorDialog(
+            AppLocalizations.of(context).errorEmailAlreadyExists,
+          );
           break;
         case 'blank':
-          _showErrorDialog('All fields are mandatory.');
+          _showErrorDialog(
+            AppLocalizations.of(context).errorAllFieldsMandatory,
+          );
           break;
         default:
           _showErrorDialog();
@@ -128,19 +136,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Container(
                             width: double.infinity,
                             child: Text(
-                              'Register',
+                              AppLocalizations.of(context).registerScreenTitle,
                               style: Theme.of(context).textTheme.headline2,
                               textAlign: TextAlign.left,
                             ),
                           ),
                           SizedBox(height: 10),
                           TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'Email'),
+                            decoration: InputDecoration(
+                              labelText:
+                                  AppLocalizations.of(context).formLabelEmail,
+                            ),
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value.isEmpty || !value.contains('@')) {
-                                return 'Invalid Email!';
+                                return AppLocalizations.of(context)
+                                    .errorInvalidEmail;
                               }
                               return null;
                             },
@@ -148,13 +159,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 _formValues['email'] = newValue,
                           ),
                           TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'Password'),
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)
+                                  .formLabelPassword,
+                            ),
                             obscureText: true,
                             controller: _passwordController,
                             validator: (value) {
                               if (value.isEmpty || value.length < 8) {
-                                return 'Invalid Password! Must be at least 8 characters!';
+                                return AppLocalizations.of(context)
+                                    .errorInvalidPassword;
                               }
                               return null;
                             },
@@ -162,12 +176,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 _formValues['password'] = newValue,
                           ),
                           TextFormField(
-                            decoration: const InputDecoration(
-                                labelText: 'Confirm Password'),
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)
+                                  .formLabelConfirmPassword,
+                            ),
                             obscureText: true,
                             validator: (value) {
                               if (value != _passwordController.text) {
-                                return 'Password must match!';
+                                return AppLocalizations.of(context)
+                                    .errorPasswordMustMatch;
                               }
                               return null;
                             },
@@ -178,7 +195,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           _formIsSubmitting
                               ? CircularProgressIndicator()
                               : ElevatedButton(
-                                  child: const Text('REGISTER'),
+                                  child: Text(
+                                    AppLocalizations.of(context).btnRegister,
+                                  ),
                                   onPressed: _formSubmitted,
                                 ),
                         ],
@@ -188,7 +207,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Container(
                   child: TextButton(
-                    child: const Text('Already have an account? Login'),
+                    child: Text(
+                      AppLocalizations.of(context)
+                          .registerScreenAlreadyHaveAccount,
+                    ),
                     style: TextButton.styleFrom(
                       textStyle: TextStyle(fontWeight: FontWeight.bold),
                     ),

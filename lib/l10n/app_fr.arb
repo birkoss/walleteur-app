@@ -1,11 +1,33 @@
 {
     "helloWorld": "Salut Monde!",
+
     "homeScreenTitle": "Accueil",
     "homeScreenNoPerson": "Aucune personne pour l'instant",
+
+    "registerScreenTitle": "Nouveau compte",
+    "registerScreenAlreadyHaveAccount": "Déjà un compte? Identifiez-vous",
+
+    "formLabelEmail": "Courriel",
+    "formLabelPassword": "Mot de passe",
+    "formLabelConfirmPassword": "Confirmation du mot de passe",
+
     "generalAlertDialogTitle": "Êtes-vous sur?",
     "generalAlertDialogDeletePerson": "Voulez-vous effacer cette personne?",
     "generalAlertDialogBtnNo": "Non",
     "generalAlertDialogBtnYes": "Oui",
+    "generalAlertDialogErrorTitle": "Oups!",
+    "generalAlertDialogErrorMessage" : "Il y a eu un problème. Veuillez ré-essayer plus tard.",
+
     "personItemLastWeek": "Semaine dernière: ",
+
+    "errorEmailAlreadyExists": "Ce courriel existe déjà.",
+    "errorInvalidEmail": "Courriel invalide",
+    "errorAllFieldsMandatory": "Tous les champs sont obligatoires.",
+    "errorInvalidPassword": "Mot de passe invalide! Il doit être au moins 8 caractères!",
+    "errorPasswordMustMatch": "Les mots de passes ne sont pas identique!",
+
+    "btnRegister": "CRÉER",
+
     "linkLogout": "Déconnexion"
+
 }
