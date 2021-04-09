@@ -20,6 +20,8 @@
 
     "formLabelEmail": "Email",
     "formLabelName": "Name",
+    "formLabelAmount": "Amount",
+    "formLabelReason": "Reason",
     "formLabelPassword": "Password",
     "formLabelConfirmPassword": "Confirm Password",
 

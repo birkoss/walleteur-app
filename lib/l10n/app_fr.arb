@@ -17,6 +17,8 @@
 
     "formLabelEmail": "Courriel",
     "formLabelName": "Nom",
+    "formLabelAmount": "Montant",
+    "formLabelReason": "Raison",
     "formLabelPassword": "Mot de passe",
     "formLabelConfirmPassword": "Confirmation du mot de passe",
 
