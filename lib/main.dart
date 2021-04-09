@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              brightness: Brightness.dark,
+            ),
             primarySwatch: Colors.purple,
             accentColor: Colors.green,
             textTheme: TextTheme(
