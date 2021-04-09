@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/edit_person.dart';
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title: const Text('Home'),
+        title: Text(AppLocalizations.of(context).homeScreenTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.person_add),
@@ -45,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (ctx, persons, _) => RefreshIndicator(
                   onRefresh: () => _refreshPersons(context),
                   child: persons.isEmpty
-                      ? Empty('No person at the moment...')
+                      ? Empty(AppLocalizations.of(context).homeScreenNoPerson)
                       : ListView.builder(
                           itemCount: persons.persons.length,
                           itemBuilder: (ctx, index) =>

@@ -1,0 +1,8 @@
+{
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+      "description": "The conventional newborn programmer greeting"
+    },
+    "homeScreenTitle": "Home",
+    "homeScreenNoPerson": "No person at the moment"
+}
