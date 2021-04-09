@@ -90,7 +90,9 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
                   children: [
                     TextFormField(
                       initialValue: _formValues['name'],
-                      decoration: const InputDecoration(labelText: 'Name'),
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context).formLabelName,
+                      ),
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value.isEmpty) {

@@ -19,6 +19,7 @@
     "editPersonScreenTitle": "Edit Person",
 
     "formLabelEmail": "Email",
+    "formLabelName": "Name",
     "formLabelPassword": "Password",
     "formLabelConfirmPassword": "Confirm Password",
 

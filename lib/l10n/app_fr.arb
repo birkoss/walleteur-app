@@ -16,6 +16,7 @@
     "editPersonScreenTitle": "Modifier une personne",
 
     "formLabelEmail": "Courriel",
+    "formLabelName": "Nom",
     "formLabelPassword": "Mot de passe",
     "formLabelConfirmPassword": "Confirmation du mot de passe",
 
