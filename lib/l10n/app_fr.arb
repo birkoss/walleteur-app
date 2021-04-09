@@ -32,6 +32,8 @@
     "errorInvalidPassword": "Mot de passe invalide! Il doit être au moins 8 caractères!",
     "errorPasswordMustMatch": "Les mots de passes ne sont pas identique!",
     "errorLogin": "Impossible de vous identifier. Veuillez ré-essayer plus tard.",
+    "errorValue": "Veuillez remplir ce champ!",
+    "errorInvalidAmount": "Veuillez fournir un montant valide!",
 
     "btnRegister": "CRÉER",
     "btnLogin": "ALLER",

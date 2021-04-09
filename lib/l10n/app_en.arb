@@ -35,6 +35,8 @@
     "errorInvalidPassword": "Invalid Password! Must be at least 8 characters!",
     "errorPasswordMustMatch": "Password must match!",
     "errorLogin": "Cound not authenticate you. Please try later.",
+    "errorValue": "Please provide a value!",
+    "errorInvalidAmount": "Please provide a valid amount!",
 
     "btnRegister": "REGISTER",
     "btnLogin": "LOGIN",

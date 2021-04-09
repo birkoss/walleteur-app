@@ -135,10 +135,11 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please provide a value!';
+                          return AppLocalizations.of(context).errorValue;
                         }
                         if (double.tryParse(value) == null) {
-                          return 'Please provide a valid amount!';
+                          return AppLocalizations.of(context)
+                              .errorInvalidAmount;
                         }
                         return null;
                       },
@@ -152,7 +153,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                       textInputAction: TextInputAction.done,
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please provide a value!';
+                          return AppLocalizations.of(context).errorValue;
                         }
                         return null;
                       },
