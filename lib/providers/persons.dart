@@ -29,6 +29,10 @@ class Persons with ChangeNotifier {
 
     // @TODO: Alphabetical sort (like from the API)
     _persons.add(Person(response['personId'], name, 0));
+    // Order the list, by name
+    _persons.sort(
+      (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+    );
     notifyListeners();
   }
 
