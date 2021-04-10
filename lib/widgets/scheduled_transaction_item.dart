@@ -14,6 +14,8 @@ class ScheduledTransactionItem extends StatelessWidget {
   final String reason;
   final Person person;
   final DateTime date;
+  final int intervalAmount;
+  final String intervalType;
   final Function onDelete;
 
   ScheduledTransactionItem({
@@ -21,6 +23,8 @@ class ScheduledTransactionItem extends StatelessWidget {
     @required this.amount,
     @required this.reason,
     @required this.person,
+    @required this.intervalAmount,
+    @required this.intervalType,
     @required this.date,
     @required this.onDelete,
   });
@@ -118,7 +122,17 @@ class ScheduledTransactionItem extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   SizedBox(width: 4),
-                  Text("Every X days"),
+                  Text(
+                    AppLocalizations.of(context).editTransactionScreenRepeat +
+                        " " +
+                        intervalAmount.toString() +
+                        " " +
+                        (intervalType == "daily"
+                            ? AppLocalizations.of(context)
+                                .scheduledTransactionTypeDays
+                            : AppLocalizations.of(context)
+                                .scheduledTransactionTypeMonths),
+                  ),
                 ],
               ),
             ],

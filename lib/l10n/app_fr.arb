@@ -27,7 +27,7 @@
     "formLabelConfirmPassword": "Confirmation du mot de passe",
     "formLabelNextDue": "Prochain",
 
-    "scheduledTransactionTypeDays": "jours",
+    "scheduledTransactionTypeDays": "jour(s)",
     "scheduledTransactionTypeMonths": "mois",
 
     "generalAlertDialogTitle": "Êtes-vous sur?",

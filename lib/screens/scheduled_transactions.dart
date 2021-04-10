@@ -107,6 +107,8 @@ class _ScheduledTransactionsScreenState
                       reason: _transactions[index].reason,
                       person: _currentPerson,
                       date: _transactions[index].date,
+                      intervalAmount: _transactions[index].intervalAmount,
+                      intervalType: _transactions[index].intervalType,
                       onDelete: () {
                         setState(() {
                           // ...

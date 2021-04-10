@@ -30,8 +30,8 @@
     "formLabelConfirmPassword": "Confirm Password",
     "formLabelNextDue": "Next Due",
 
-    "scheduledTransactionTypeDays": "days",
-    "scheduledTransactionTypeMonths": "months",
+    "scheduledTransactionTypeDays": "day(s)",
+    "scheduledTransactionTypeMonths": "month(s)",
 
     "generalAlertDialogTitle": "Are you sure?",
     "generalAlertDialogDeletePerson": "Do you want to remove this person?",
