@@ -18,6 +18,9 @@
 
     "editPersonScreenTitle": "Edit Person",
 
+    "editTransactionScreenTitle": "Edit Transaction",
+    "editScheduledTransactionScreenTitle": "Edit Scheduled Transaction",
+
     "formLabelEmail": "Email",
     "formLabelName": "Name",
     "formLabelAmount": "Amount",

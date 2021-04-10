@@ -92,13 +92,11 @@ class PersonItem extends StatelessWidget {
                   )
                 : Text(
                     '${p.balance.toStringAsFixed(2)} \$',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: person.balance < 0
-                          ? Theme.of(context).errorColor
-                          : null,
-                    ),
+                    style: Theme.of(context).textTheme.headline3.copyWith(
+                          color: person.balance < 0
+                              ? Theme.of(context).errorColor
+                              : null,
+                        ),
                   ),
             onTap: onTap,
           ),

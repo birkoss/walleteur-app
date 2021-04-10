@@ -50,6 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             id: t['id'],
             amount: double.parse(t['amount']),
             reason: t['reason'],
+            type: t['type'],
             date: DateTime.parse(t['date_added']),
             person: Person(
               t['person']['id'],
@@ -66,6 +67,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         title: Text(_currentPerson.name),
         actions: [
+          IconButton(
+            icon: Icon(Icons.more_time),
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                EditTransactionScreen.routeName,
+                arguments: {
+                  'personId': _currentPerson.id,
+                  'isScheduled': true,
+                  'onAdded': () {
+                    setState(() {
+                      // ...
+                    });
+                  }
+                },
+              );
+            },
+          ),
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
@@ -99,6 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     transactionId: _transactions[index].id,
                     amount: _transactions[index].amount,
                     reason: _transactions[index].reason,
+                    type: _transactions[index].type,
                     person: _currentPerson,
                     date: _transactions[index].date,
                     onTap: () {

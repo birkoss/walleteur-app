@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/person.dart';
@@ -20,13 +21,28 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
   var _formValues = {
     'amount': '',
     'reason': '',
+    'date_next_due': DateTime.now().add(Duration(days: 1)),
+    'intervalAmount': '7',
+    'intervalType': 'daily',
   };
 
   var _isLoading = false;
   var _isLoaded = false;
 
   Person _currentPerson;
-  Function onAdded;
+  var _isScheduled = false;
+  Function _onAdded;
+
+  List<DropdownMenuItem<String>> _intervalTypes = [
+    DropdownMenuItem(
+      child: Text('days'),
+      value: 'daily',
+    ),
+    DropdownMenuItem(
+      child: Text('months'),
+      value: 'monthly',
+    ),
+  ];
 
   @override
   void didChangeDependencies() {
@@ -36,7 +52,9 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
       final data = ModalRoute.of(context).settings.arguments as Map;
 
       final personId = data['personId'];
-      onAdded = data['onAdded'];
+      _onAdded = data['onAdded'];
+      _isScheduled = data['isScheduled'] == true;
+
       _currentPerson = Provider.of<Persons>(
         context,
         listen: false,
@@ -56,14 +74,31 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
     });
 
     try {
-      await Provider.of<TransactionsProvider>(
-        context,
-        listen: false,
-      ).addTransaction(
-        _currentPerson.id,
-        double.parse(_formValues['amount']),
-        _formValues['reason'],
-      );
+      print("_submitForm");
+      if (_isScheduled) {
+        print("isScheduled...");
+        print(_formValues);
+        await Provider.of<TransactionsProvider>(
+          context,
+          listen: false,
+        ).addScheduledTransaction(
+          _currentPerson.id,
+          double.parse(_formValues['amount']),
+          _formValues['reason'],
+          _formValues['date_next_due'].toString().substring(0, 10),
+          int.parse(_formValues['intervalAmount']),
+          _formValues['intervalType'],
+        );
+      } else {
+        await Provider.of<TransactionsProvider>(
+          context,
+          listen: false,
+        ).addTransaction(
+          _currentPerson.id,
+          double.parse(_formValues['amount']),
+          _formValues['reason'],
+        );
+      }
 
       /* Refresh the current user since the balance and other stats has changed */
       await _currentPerson.refresh(Provider.of<UserProvider>(
@@ -72,7 +107,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
       ).token);
 
       /* Callback the widget to refresh the list */
-      onAdded();
+      _onAdded();
 
       Navigator.of(context).pop();
     } catch (error) {
@@ -107,7 +142,11 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_currentPerson.name),
+        title: Text(
+          _isScheduled
+              ? AppLocalizations.of(context).editScheduledTransactionScreenTitle
+              : AppLocalizations.of(context).editTransactionScreenTitle,
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.save),
@@ -165,6 +204,88 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                         _formValues['reason'] = value;
                       },
                     ),
+                    if (_isScheduled)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Next Due: '),
+                            Text(
+                              DateFormat.yMMMMEEEEd(
+                                Localizations.localeOf(context).languageCode,
+                              ).format(_formValues['date_next_due']),
+                            ),
+                            Spacer(),
+                            TextButton(
+                              onPressed: () async {
+                                // ...
+                                var date = await showDatePicker(
+                                  context: context,
+                                  firstDate:
+                                      DateTime.now().add(Duration(days: 1)),
+                                  initialDate: _formValues['date_next_due'],
+                                  lastDate: DateTime.now().add(
+                                    Duration(days: 365),
+                                  ),
+                                );
+
+                                if (date != null) {
+                                  setState(() {
+                                    _formValues['date_next_due'] = date;
+                                  });
+                                }
+                              },
+                              child: Text('Select Date'),
+                            )
+                          ],
+                        ),
+                      ),
+                    if (_isScheduled)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Repeat every'),
+                          SizedBox(
+                            width: 100,
+                            child: TextFormField(
+                              initialValue: _formValues['intervalAmount'],
+                              decoration: InputDecoration(
+                                labelText: 'Amount',
+                              ),
+                              textInputAction: TextInputAction.next,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                signed: false,
+                                decimal: false,
+                              ),
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return AppLocalizations.of(context)
+                                      .errorValue;
+                                }
+                                if (int.tryParse(value) == null) {
+                                  return AppLocalizations.of(context)
+                                      .errorInvalidAmount;
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _formValues['intervalAmount'] = value;
+                              },
+                            ),
+                          ),
+                          DropdownButton<String>(
+                            value: _formValues['intervalType'],
+                            items: _intervalTypes,
+                            onChanged: (value) {
+                              setState(() {
+                                _formValues['intervalType'] = value;
+                              });
+                            },
+                          )
+                        ],
+                      ),
                   ],
                 ),
               ),

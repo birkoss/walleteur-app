@@ -33,6 +33,30 @@ class TransactionsProvider with ChangeNotifier {
     await fetch();
   }
 
+  Future<void> addScheduledTransaction(
+    String personId,
+    double amount,
+    String reason,
+    String date,
+    int intervalAmount,
+    String intervalType,
+  ) async {
+    print("addScheduledTransaction");
+    await Api.post(
+      endpoint: '/v1/person/$personId/scheduledTransactions',
+      token: _userToken,
+      body: {
+        'amount': amount,
+        'reason': reason,
+        'date_next_due': date,
+        'interval_amount': intervalAmount,
+        'interval_type': intervalType,
+      },
+    );
+
+    await fetch();
+  }
+
   Future<void> deleteTransaction(String transactionId) async {
     print("deleteTransaction: $transactionId");
     await Api.delete(
@@ -58,6 +82,7 @@ class TransactionsProvider with ChangeNotifier {
             amount: double.parse(t['amount']),
             reason: t['reason'],
             date: DateTime.parse(t['date_added']),
+            type: t['type'],
             person: Person(
               t['person']['id'],
               t['person']['name'],

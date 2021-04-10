@@ -15,6 +15,9 @@
 
     "editPersonScreenTitle": "Modifier une personne",
 
+    "editTransactionScreenTitle": "Modifier une transaction",
+    "editScheduledTransactionScreenTitle": "Modifier une transaction planifiée",
+
     "formLabelEmail": "Courriel",
     "formLabelName": "Nom",
     "formLabelAmount": "Montant",

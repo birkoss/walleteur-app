@@ -50,7 +50,10 @@ class MyApp extends StatelessWidget {
             textTheme: TextTheme(
               headline1: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
               headline2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-              bodyText2: TextStyle(fontSize: 14.0),
+              headline3: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           home: user.isLogged

@@ -10,11 +10,14 @@ class Transaction {
 
   final Person person;
 
+  final String type;
+
   Transaction({
     @required this.id,
     @required this.amount,
     @required this.reason,
     @required this.date,
     @required this.person,
+    @required this.type,
   });
 }

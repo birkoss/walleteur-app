@@ -11,6 +11,7 @@ class TransactionItem extends StatelessWidget {
   final String transactionId;
   final double amount;
   final String reason;
+  final String type;
   final Person person;
   final DateTime date;
   final Function onTap;
@@ -22,6 +23,7 @@ class TransactionItem extends StatelessWidget {
     @required this.reason,
     @required this.person,
     @required this.date,
+    @required this.type,
     @required this.onTap,
     @required this.onDelete,
   });
@@ -94,20 +96,23 @@ class TransactionItem extends StatelessWidget {
             ),
           ),
         ),
-        title: Text(reason),
-        subtitle: Row(
+        title: Row(
           children: [
-            const Icon(Icons.today, size: 18, color: Colors.grey),
-            const SizedBox(width: 2),
-            Text(
-              DateFormat.MMMMEEEEd(
-                Localizations.localeOf(context).languageCode,
-              ).format(date),
-            ),
+            if (type != '') const Icon(Icons.history, size: 18),
+            if (type != '') const SizedBox(width: 2),
+            Text(reason),
           ],
+        ),
+        subtitle: Text(
+          DateFormat.MMMMEEEEd(
+            Localizations.localeOf(context).languageCode,
+          ).format(date),
         ),
         trailing: Text(
           '${amount.toStringAsFixed(2)} \$',
+          style: Theme.of(context).textTheme.headline3.copyWith(
+                color: amount < 0 ? Theme.of(context).errorColor : null,
+              ),
         ),
         onTap: onTap,
       ),
