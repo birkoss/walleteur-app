@@ -9,14 +9,16 @@ class Person with ChangeNotifier {
   double balance;
   bool isUpdatingBalance = false;
 
-  Map<String, double> stats = {
-    'amount': 0,
-    'total': 0,
-  };
+  int weeklyTotal = 0;
+  double weeklyAmount = 0;
 
   List<Transaction> transactions = [];
 
-  Person(this.id, this.name, this.balance);
+  Person(
+    this.id,
+    this.name,
+    this.balance,
+  );
 
   Future<void> refresh(String userToken) async {
     isUpdatingBalance = true;
@@ -28,8 +30,12 @@ class Person with ChangeNotifier {
       token: userToken,
     );
 
+    /* Refresh balance and weekly stats */
     if (response['person'] != null) {
-      balance = double.parse(response['person']['balance']);
+      var person = response['person'] as Map;
+      balance = double.parse(person['balance']);
+      weeklyAmount = double.parse(person['weekly_amount']);
+      weeklyTotal = person['weekly_total'];
       notifyListeners();
     }
 

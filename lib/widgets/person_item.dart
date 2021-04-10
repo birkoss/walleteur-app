@@ -13,7 +13,7 @@ class PersonItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var person = Provider.of<Person>(context, listen: false);
-
+    print(person);
     return Dismissible(
       direction: DismissDirection.endToStart,
       confirmDismiss: (direction) => showDialog(
@@ -82,8 +82,8 @@ class PersonItem extends StatelessWidget {
                 ? LinearProgressIndicator()
                 : Text(
                     AppLocalizations.of(context).personItemLastWeek +
-                        (p.stats['amount'] > 0 ? "+" : "") +
-                        '${p.stats['amount'].toStringAsFixed(2)} \$',
+                        (p.weeklyAmount > 0 ? "+" : "") +
+                        '${p.weeklyAmount.toStringAsFixed(2)} \$',
                   ),
             trailing: p.isUpdatingBalance
                 ? SizedBox(

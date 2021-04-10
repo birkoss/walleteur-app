@@ -115,6 +115,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
       Navigator.of(context).pop();
     } catch (error) {
       print(error);
+      print("........");
       await showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(

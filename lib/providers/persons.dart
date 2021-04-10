@@ -28,10 +28,12 @@ class Persons with ChangeNotifier {
     );
 
     _persons.add(Person(response['personId'], name, 0));
+
     // Order the list, by name
     _persons.sort(
       (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
     );
+
     notifyListeners();
   }
 
@@ -50,20 +52,33 @@ class Persons with ChangeNotifier {
     final response = await Api.get(endpoint: '/v1/persons', token: _userToken);
 
     final persons = response['persons'] as List;
-    _persons = persons
-        .map((p) => Person(p['id'], p['name'], double.parse(p['balance'])))
-        .toList();
+    _persons = persons.map(
+      (p) {
+        var person = Person(
+          p['id'],
+          p['name'],
+          double.parse(p['balance']),
+        );
 
-    final stats = response['weeklyStats'] as List;
-    print(stats);
+        person.weeklyAmount = double.parse(p['weekly_amount']);
+        person.weeklyTotal = p['weekly_total'];
+
+        return person;
+      },
+    ).toList();
+
+    //final stats = response['weeklyStats'] as List;
+    //print(stats);
+    /*
     stats.forEach((s) {
       _persons.firstWhere((p) => p.id == s['personId']).stats = {
         'amount': s['amount'],
         'total': s['total'] + 0.0,
       };
     });
+    */
 
-    print(_persons[0].stats);
+    //print(_persons[0].stats);
 
     notifyListeners();
   }
