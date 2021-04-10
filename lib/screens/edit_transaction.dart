@@ -33,16 +33,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
   var _isScheduled = false;
   Function _onAdded;
 
-  List<DropdownMenuItem<String>> _intervalTypes = [
-    DropdownMenuItem(
-      child: Text('days'),
-      value: 'daily',
-    ),
-    DropdownMenuItem(
-      child: Text('months'),
-      value: 'monthly',
-    ),
-  ];
+  List<DropdownMenuItem<String>> _intervalTypes = [];
 
   @override
   void didChangeDependencies() {
@@ -59,6 +50,21 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
         context,
         listen: false,
       ).persons.firstWhere((p) => p.id == personId);
+
+      _intervalTypes = [
+        DropdownMenuItem(
+          child: Text(
+            AppLocalizations.of(context).scheduledTransactionTypeDays,
+          ),
+          value: 'daily',
+        ),
+        DropdownMenuItem(
+          child: Text(
+            AppLocalizations.of(context).scheduledTransactionTypeMonths,
+          ),
+          value: 'monthly',
+        ),
+      ];
     }
     super.didChangeDependencies();
   }
@@ -74,10 +80,7 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
     });
 
     try {
-      print("_submitForm");
       if (_isScheduled) {
-        print("isScheduled...");
-        print(_formValues);
         await Provider.of<TransactionsProvider>(
           context,
           listen: false,
@@ -210,7 +213,8 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Next Due: '),
+                            Text(AppLocalizations.of(context).formLabelNextDue +
+                                ': '),
                             Text(
                               DateFormat.yMMMMEEEEd(
                                 Localizations.localeOf(context).languageCode,
@@ -236,7 +240,9 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                                   });
                                 }
                               },
-                              child: Text('Select Date'),
+                              child: Text(
+                                AppLocalizations.of(context).btnPickDate,
+                              ),
                             )
                           ],
                         ),
@@ -245,13 +251,17 @@ class _EditTransactionScreenState extends State<EditTransactionScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Repeat every'),
+                          Text(
+                            AppLocalizations.of(context)
+                                .editTransactionScreenRepeat,
+                          ),
                           SizedBox(
                             width: 100,
                             child: TextFormField(
                               initialValue: _formValues['intervalAmount'],
                               decoration: InputDecoration(
-                                labelText: 'Amount',
+                                labelText: AppLocalizations.of(context)
+                                    .formLabelAmount,
                               ),
                               textInputAction: TextInputAction.next,
                               keyboardType:

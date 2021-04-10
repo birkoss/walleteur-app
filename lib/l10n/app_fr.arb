@@ -16,6 +16,7 @@
     "editPersonScreenTitle": "Modifier une personne",
 
     "editTransactionScreenTitle": "Modifier une transaction",
+    "editTransactionScreenRepeat": "Répéter chaque",
     "editScheduledTransactionScreenTitle": "Modifier une transaction planifiée",
 
     "formLabelEmail": "Courriel",
@@ -24,9 +25,14 @@
     "formLabelReason": "Raison",
     "formLabelPassword": "Mot de passe",
     "formLabelConfirmPassword": "Confirmation du mot de passe",
+    "formLabelNextDue": "Prochain",
+
+    "scheduledTransactionTypeDays": "jours",
+    "scheduledTransactionTypeMonths": "mois",
 
     "generalAlertDialogTitle": "Êtes-vous sur?",
     "generalAlertDialogDeletePerson": "Voulez-vous effacer cette personne?",
+    "generalAlertDialogDeleteTransaction": "Voulez-vous effacer cette transaction?",
     "generalAlertDialogBtnNo": "Non",
     "generalAlertDialogBtnYes": "Oui",
     "generalAlertDialogErrorTitle": "Oups!",
@@ -45,6 +51,7 @@
 
     "btnRegister": "CRÉER",
     "btnLogin": "ALLER",
+    "btnPickDate": "Choisir une date",
 
     "linkLogout": "Déconnexion"
 

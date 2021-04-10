@@ -34,7 +34,9 @@ class ScheduledTransactionItem extends StatelessWidget {
           title: Text(
             AppLocalizations.of(context).generalAlertDialogTitle,
           ),
-          content: const Text('Do you want to remove this transaction?'),
+          content: Text(
+            AppLocalizations.of(context).generalAlertDialogDeleteTransaction,
+          ),
           actions: [
             TextButton(
               onPressed: () {
