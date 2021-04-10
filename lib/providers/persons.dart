@@ -46,7 +46,6 @@ class Persons with ChangeNotifier {
     notifyListeners();
   }
 
-  // @TODO: Optimize with Person.refresh()
   Future<void> fetch() async {
     final response = await Api.get(endpoint: '/v1/persons', token: _userToken);
 
