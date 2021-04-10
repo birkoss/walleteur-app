@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/edit_transaction.dart';
+import '../screens/scheduled_transactions.dart';
 
 import '../widgets/empty.dart';
 import '../widgets/transaction_item.dart';
@@ -68,19 +69,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text(_currentPerson.name),
         actions: [
           IconButton(
-            icon: Icon(Icons.more_time),
+            icon: Icon(Icons.schedule),
             onPressed: () {
               Navigator.of(context).pushNamed(
-                EditTransactionScreen.routeName,
-                arguments: {
-                  'personId': _currentPerson.id,
-                  'isScheduled': true,
-                  'onAdded': () {
-                    setState(() {
-                      // ...
-                    });
-                  }
-                },
+                ScheduledTransactionsScreen.routeName,
+                arguments: _currentPerson.id,
               );
             },
           ),
