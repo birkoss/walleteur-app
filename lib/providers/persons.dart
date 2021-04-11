@@ -52,6 +52,7 @@ class Persons with ChangeNotifier {
     final response = await Api.get(endpoint: '/v1/persons', token: _userToken);
 
     final persons = response['persons'] as List;
+    print(persons);
     _persons = persons.map(
       (p) {
         var person = Person(
@@ -60,12 +61,29 @@ class Persons with ChangeNotifier {
           double.parse(p['balance']),
         );
 
-        person.weeklyAmount = double.parse(p['weekly_amount']);
+        person.weeklyAmount =
+            p['weekly_amount'] == null ? 0 : double.parse(p['weekly_amount']);
         person.weeklyTotal = p['weekly_total'];
 
         return person;
       },
     ).toList();
+
+    print(_persons);
+
+    notifyListeners();
+  }
+
+  Future<void> updatePerson(String id, String name) async {
+    await Api.patch(
+      endpoint: '/v1/person/$id',
+      token: _userToken,
+      body: {
+        'name': name,
+      },
+    );
+
+    _persons.firstWhere((p) => p.id == id).name = name;
 
     notifyListeners();
   }

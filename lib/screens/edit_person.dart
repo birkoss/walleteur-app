@@ -20,7 +20,27 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
     'name': '',
   };
 
+  var _isInit = false;
   var _isLoading = false;
+  String _personId;
+
+  @override
+  void didChangeDependencies() {
+    if (!_isInit) {
+      _isInit = true;
+
+      _personId = ModalRoute.of(context).settings.arguments as String;
+
+      if (_personId != null) {
+        _formValues['name'] = Provider.of<Persons>(context)
+            .persons
+            .firstWhere((p) => p.id == _personId)
+            .name;
+      }
+    }
+
+    super.didChangeDependencies();
+  }
 
   void _submitForm() async {
     if (!_form.currentState.validate()) {
@@ -33,10 +53,17 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
     });
 
     try {
-      await Provider.of<Persons>(
-        context,
-        listen: false,
-      ).addPerson(_formValues['name']);
+      if (_personId == null) {
+        await Provider.of<Persons>(
+          context,
+          listen: false,
+        ).addPerson(_formValues['name']);
+      } else {
+        await Provider.of<Persons>(
+          context,
+          listen: false,
+        ).updatePerson(_personId, _formValues['name']);
+      }
 
       Navigator.of(context).pop();
     } catch (error) {

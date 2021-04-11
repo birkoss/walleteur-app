@@ -1,3 +1,4 @@
+import 'package:app/screens/edit_person.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -63,11 +64,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("Profile.build...");
     return Scaffold(
       appBar: AppBar(
         title: Text(_currentPerson.name),
         actions: [
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                EditPersonScreen.routeName,
+                arguments: _currentPerson.id,
+              );
+            },
+          ),
           IconButton(
             icon: Icon(Icons.schedule),
             onPressed: () {
