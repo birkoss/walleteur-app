@@ -122,9 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     type: _transactions[index].type,
                     person: _currentPerson,
                     date: _transactions[index].date,
-                    onTap: () {
-                      // ...
-                    },
+                    onTap: null,
                     onDelete: () {
                       setState(() {
                         // ...

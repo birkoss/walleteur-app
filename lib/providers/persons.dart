@@ -51,6 +51,8 @@ class Persons with ChangeNotifier {
   Future<void> fetch() async {
     final response = await Api.get(endpoint: '/v1/persons', token: _userToken);
 
+    print(response);
+
     final persons = response['persons'] as List;
     print(persons);
     _persons = persons.map(

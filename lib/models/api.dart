@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 import '../models/http_exception.dart';
 
 class Api {
-  // static final String _baseUrl = 'https://api.walleteur.app';
-  static final String _baseUrl = 'http://localhost:8000';
+  static final String _baseUrl = 'https://api.walleteur.app';
+  //static final String _baseUrl = 'http://localhost:8000';
 
   static Map<String, String> _getHeaders(String token) {
     Map<String, String> headers = {
@@ -65,6 +65,7 @@ class Api {
 
       return data;
     } catch (error) {
+      print("Api.get()");
       print(error);
       throw error;
     }
